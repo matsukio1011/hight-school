@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三角方程式・三角不等式 徹底理解</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #38bdf8;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      border: 2px solid #0f172a;
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #38bdf8;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+      border: 2px solid #0f172a;
+    }
+    /* カスタムスクロールバー */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(51, 65, 85, 0.8);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.9);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 h-full flex flex-col overflow-hidden select-none">
+
+  <!-- ヘッダー -->
+  <header class="h-14 border-b border-slate-800 bg-slate-900/90 backdrop-blur px-4 flex items-center justify-between shrink-0 z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-sm shadow-inner">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 3v18M3 12h18"/></svg>
+      </div>
+      <div>
+        <h1 class="font-bold text-sm leading-tight text-white flex items-center gap-2">
+          三角方程式・三角不等式 徹底理解
+          <span class="text-[10px] bg-slate-800 text-sky-400 px-2 py-0.5 rounded border border-slate-700 font-mono">Interactive</span>
+        </h1>
+        <p class="text-[11px] text-slate-400 leading-none mt-0.5">単位円とグラフ（θ軸・t軸）のダイナミック連動学習</p>
+      </div>
+    </div>
+
+    <!-- アプリ切り替えタブ (App Switcher) -->
+    <div class="hidden sm:flex items-center bg-slate-950/90 p-1 rounded-xl border border-slate-800 shadow-inner text-xs gap-1">
+      <a href="index.html" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition font-medium" title="ポータルサイトへ戻る">
+        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>🏠 ポータル</span>
+      </a>
+      <a href="equations.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 font-semibold shadow-sm cursor-default">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 3v18M3 12h18"/></svg>
+        <span>📐 方程式・不等式 (18問)</span>
+      </a>
+      <a href="graph.html" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition font-medium" title="三角関数のグラフ描き方マスターへ切り替え">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12c4-8 8-8 10 0s6 8 10 0"/></svg>
+        <span>📈 グラフ描き方 (26問)</span>
+      </a>
+    </div>
+
+    <!-- ヘッダー中央：現在の問題（数式 KaTeX 表示） -->
+    <div class="hidden xl:flex items-center gap-2.5 bg-slate-950/80 px-4 py-1.5 rounded-lg border border-slate-800">
+      <span id="headerProbBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+        応用例題 5
+      </span>
+      <div id="headerProbMath" class="text-xs font-serif text-slate-200">
+        <!-- KaTeX 挿入 -->
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- 問題選択ポップアップ起動ボタン -->
+      <button id="headerOpenModalBtn" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-medium text-xs flex items-center gap-1.5 shadow transition">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+        <span>問題を選択 (全18問)</span>
+      </button>
+
+      <!-- 全画面ボタン -->
+      <button id="fullscreenBtn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="全画面表示">
+        <svg id="fsIconExpand" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <svg id="fsIconCompress" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 4v5H4m5-5L3 10m11-6v5h5m-5-5l6 6M9 20v-5H4m5 5l-6-6m11 6v-5h5m-5 5l6-6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- メインワークスペース：左に大画面キャンバス、右に縦型操作サイドパネル -->
+  <main class="flex-1 flex flex-row p-3 min-h-0 bg-slate-950 gap-3 overflow-hidden">
+
+    <!-- 左側：メインキャンバス領域 ＆ ボトムコントローラー -->
+    <div class="flex-1 flex flex-col min-w-0 min-h-0 gap-2">
+      
+      <!-- メインキャンバス領域（全面展開） -->
+      <div id="canvasViewport" class="flex-1 relative w-full h-full min-h-0 overflow-hidden flex gap-2">
+        <!-- 単位円キャンバスコンテナ -->
+        <div id="circleContainer" class="flex-1 relative w-full h-full min-h-0 bg-slate-900/60 rounded-xl border border-slate-800/80 shadow-xl overflow-hidden">
+          <canvas id="circleCanvas" class="w-full h-full block"></canvas>
+        </div>
+
+        <!-- グラフキャンバスコンテナ (θまたはt軸) -->
+        <div id="graphContainer" class="hidden flex-1 relative w-full h-full min-h-0 bg-slate-900/60 rounded-xl border border-slate-800/80 shadow-xl overflow-hidden">
+          <canvas id="graphCanvas" class="w-full h-full block"></canvas>
+        </div>
+      </div>
+
+      <!-- ボトムコントローラー（ワイドバー） -->
+      <div class="shrink-0 bg-slate-900/80 rounded-xl p-3 border border-slate-800/80 shadow-lg space-y-2">
+        <div class="flex items-center justify-between text-xs text-slate-300">
+          <div class="flex items-center gap-3">
+            <button id="playPauseBtn" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs flex items-center gap-2 font-medium transition shadow-sm">
+              <svg id="playIcon" class="w-3.5 h-3.5 text-sky-400 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="pauseIcon" class="w-3.5 h-3.5 text-amber-400 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+              <span id="playText">自動進行</span>
+            </button>
+            <span class="text-slate-400 text-xs">角 θ をスライダーで連続変化:</span>
+          </div>
+
+          <!-- リアルタイム値メーター群 -->
+          <div class="flex items-center gap-4 bg-slate-950/80 px-4 py-1.5 rounded-lg border border-slate-800 font-mono text-xs">
+            <div>
+              <span class="text-slate-400">探索角: </span>
+              <span id="labelCurrentTheta" class="text-emerald-300 font-bold">θ = 0.00π</span>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div>
+              <span class="text-slate-400">置換角: </span>
+              <span id="labelCurrentT" class="text-sky-300 font-bold">t = 0.00π</span>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div>
+              <span id="meterFnLabel" class="text-slate-400">sin 値: </span>
+              <span id="currentSinVal" class="text-amber-300 font-bold">0.000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-400">0</span>
+          <input id="thetaSlider" type="range" min="0" max="6.2831853" step="0.004" value="0" class="flex-1 h-2.5 bg-slate-800 rounded-lg cursor-pointer">
+          <span id="sliderMaxLabel" class="text-xs font-mono text-amber-300 font-bold">2π</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右側：縦型操作サイドパネル -->
+    <aside class="w-72 shrink-0 flex flex-col gap-3 bg-slate-900/85 border border-slate-800/90 rounded-xl p-3.5 shadow-2xl text-xs overflow-y-auto">
+      
+      <!-- セクション0: 問題の選択カード -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-rose-300 uppercase tracking-wider flex items-center justify-between pb-1 border-b border-slate-800">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            選択中の問題
+          </span>
+          <span id="sidebarProbBadge" class="px-1.5 py-0.5 rounded text-[10px] bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">
+            応用例題 5
+          </span>
+        </div>
+
+        <button id="openProbModalBtn" class="w-full p-2.5 rounded-lg text-xs font-medium transition bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/50 text-slate-200 shadow flex items-center justify-between group">
+          <div class="flex flex-col text-left">
+            <span id="sidebarProbTitle" class="font-bold text-sky-300 group-hover:text-sky-200">応用例題 5</span>
+            <span id="sidebarProbFormula" class="text-[11px] font-mono text-slate-400 group-hover:text-slate-300 mt-0.5">sin(θ - 2/3π) = -√2/2</span>
+          </div>
+          <div class="px-2 py-1 bg-sky-600/20 text-sky-400 rounded border border-sky-500/30 group-hover:bg-sky-600 group-hover:text-white transition flex items-center gap-1 text-[11px]">
+            <span>問題一覧</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- セクション0.5: 不等号の向きを選択（不等式選択時のみ表示） -->
+      <div id="ineqSignSection" class="space-y-1.5 hidden">
+        <div class="text-[11px] font-semibold text-emerald-300 uppercase tracking-wider flex items-center justify-between pb-1 border-b border-slate-800">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+            不等号の向きを選択
+          </span>
+          <span id="currentIneqSignBadge" class="font-mono text-emerald-300 font-bold text-xs bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-600/60">&gt;</span>
+        </div>
+        <div class="grid grid-cols-4 gap-1.5 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <button data-sign="gt" class="ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent">&gt;</button>
+          <button data-sign="ge" class="ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent">≧</button>
+          <button data-sign="lt" class="ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent">&lt;</button>
+          <button data-sign="le" class="ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent">≦</button>
+        </div>
+        <div class="text-[10px] text-slate-400 px-1 pt-0.5" id="ineqSignDescription">
+          <!-- 動的更新 -->
+        </div>
+      </div>
+
+      <!-- セクション1: 表示形式 -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-slate-800">
+          <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          表示形式の切り替え
+        </div>
+        <div class="flex flex-col gap-1.5 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <button id="modeCircleBtn" class="w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="1.5" d="M12 3v18M3 12h18"/></svg>
+            <span>単位円</span>
+          </button>
+          <button id="modeGraphBtn" class="w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12c3-8 6-8 9 0s6 8 9 0"/></svg>
+            <span>グラフ</span>
+          </button>
+          <button id="modeBothBtn" class="w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 bg-sky-600 text-white shadow-sm font-semibold">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 4v16M15 4v16M4 4h16v16H4z"/></svg>
+            <span>左右に並べて比較</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- セクション2: グラフの横軸選択 (θ 軸 vs t 軸) -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-sky-300 uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-slate-800">
+          <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+          グラフの横軸を選択
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <button id="axisThetaBtn" class="py-2 px-2 rounded-md text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900">
+            θ 軸で表示
+          </button>
+          <button id="axisTBtn" class="py-2 px-2 rounded-md text-xs font-mono font-bold transition text-center bg-sky-600 text-white shadow-sm">
+            t 軸で表示
+          </button>
+        </div>
+        <div class="text-[10px] text-slate-400 px-1 pt-0.5" id="axisDescription">
+          <!-- 動的更新 -->
+        </div>
+      </div>
+
+      <!-- セクション3: θ の範囲 -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-amber-300 uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-slate-800">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          θ の範囲を選択
+        </div>
+        <div id="thetaRangeGroup" class="flex flex-col gap-1 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <button data-limit="0.5pi" class="range-btn py-1.5 px-3 rounded text-left font-mono text-xs text-slate-300 hover:text-white hover:bg-slate-900 transition flex items-center justify-between">
+            <span>0 ≤ θ &lt; π/2</span>
+            <span class="text-[10px] text-slate-500 badge-info">-</span>
+          </button>
+          <button data-limit="1pi" class="range-btn py-1.5 px-3 rounded text-left font-mono text-xs text-slate-300 hover:text-white hover:bg-slate-900 transition flex items-center justify-between">
+            <span>0 ≤ θ &lt; π</span>
+            <span class="text-[10px] text-slate-500 badge-info">-</span>
+          </button>
+          <button data-limit="1.5pi" class="range-btn py-1.5 px-3 rounded text-left font-mono text-xs text-slate-300 hover:text-white hover:bg-slate-900 transition flex items-center justify-between">
+            <span>0 ≤ θ &lt; 3π/2</span>
+            <span class="text-[10px] text-slate-500 badge-info">-</span>
+          </button>
+          <button data-limit="2pi" class="range-btn py-1.5 px-3 rounded text-left font-mono text-xs bg-amber-950/70 border border-amber-600 text-amber-200 font-bold transition flex items-center justify-between">
+            <span>0 ≤ θ &lt; 2π</span>
+            <span class="text-[10px] text-amber-400 badge-info font-bold">-</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- セクション4: クイックスナップ -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-slate-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="snapSectionTitle">解へクイックスナップ</span>
+        </div>
+        <div id="snapButtonsContainer" class="grid grid-cols-2 gap-1.5 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <!-- 動的挿入 -->
+        </div>
+      </div>
+
+      <!-- セクション5: リアルタイム状態モニター -->
+      <div class="mt-auto pt-2 border-t border-slate-800 space-y-1 text-[11px] font-mono text-slate-400">
+        <div class="flex justify-between">
+          <span>t の定義:</span>
+          <span id="labelTFormula" class="text-sky-300 font-bold">t = θ - 2/3π</span>
+        </div>
+        <div class="flex justify-between">
+          <span>t の変域:</span>
+          <span id="labelTDomain" class="text-slate-200">-2/3π ≤ t &lt; 4/3π</span>
+        </div>
+        <div class="flex justify-between">
+          <span>目標値:</span>
+          <span id="labelTargetValue" class="text-amber-400 font-bold">-√2/2</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- 問題選択ポップアップ モーダルダイアログ -->
+  <div id="probModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      
+      <!-- モーダルヘッダー -->
+      <div class="p-4 px-6 bg-slate-850 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            問題を選択
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">全 18 問（方程式 12 問・不等式 6 問）からワンクリックで選択できます</p>
+        </div>
+        <button id="closeProbModalBtn" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- フィルタータブ: すべて、三角方程式、三角不等式 -->
+      <div class="px-6 py-2.5 bg-slate-950/70 border-b border-slate-800/80 flex items-center gap-2 shrink-0">
+        <button data-filter="all" class="modal-tab px-4 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition">すべて (18)</button>
+        <button data-filter="eq" class="modal-tab px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">三角方程式 (12)</button>
+        <button data-filter="ineq" class="modal-tab px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">三角不等式 (6)</button>
+      </div>
+
+      <!-- 問題カード一覧（スクロール可能） -->
+      <div id="probCardsGrid" class="p-5 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3 min-h-0">
+        <!-- JavaScript で動的生成 -->
+      </div>
+
+      <!-- モーダルフッター -->
+      <div class="p-3 px-6 bg-slate-950/80 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between shrink-0">
+        <span class="text-[11px] text-slate-500">※ ESC キーまたは背景クリックでも閉じます</span>
+        <button id="closeProbModalFooterBtn" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium transition text-xs">
+          閉じる
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 全 18 問のデータ定義
+    // ==========================================
+    const PROBLEMS = {
+      // ------------------------------------------
+      // 追加問題 (1), (2)
+      // ------------------------------------------
+      add_eq1: {
+        id: 'add_eq1',
+        category: 'eq',
+        badge: '(1)',
+        name: '(1) sin(θ + 5/6π) = √3/2',
+        type: 'eq',
+        fn: 'sin',
+        k: 1,
+        alpha: (5/6) * Math.PI,
+        alphaTex: '\\frac{5}{6}\\pi',
+        tExprTex: '\\theta + \\frac{5}{6}\\pi',
+        tExprDisp: 'θ + 5/6π',
+        target: Math.sqrt(3) / 2,
+        targetTex: '\\frac{\\sqrt{3}}{2}',
+        targetDisp: '√3/2',
+        cardFormula: '\\sin\\left(\\theta + \\frac{5}{6}\\pi\\right) = \\frac{\\sqrt{3}}{2}',
+        solutions: [
+          { theta: 1.5 * Math.PI, t: (7/3) * Math.PI, labelTh: '3/2π', labelT: '7/3π' },
+          { theta: (11/6) * Math.PI, t: (8/3) * Math.PI, labelTh: '11/6π', labelT: '8/3π' }
+        ]
+      },
+      add_eq2: {
+        id: 'add_eq2',
+        category: 'eq',
+        badge: '(2)',
+        name: '(2) cos(θ - π/3) = √2/2',
+        type: 'eq',
+        fn: 'cos',
+        k: 1,
+        alpha: -Math.PI / 3,
+        alphaTex: '-\\frac{\\pi}{3}',
+        tExprTex: '\\theta - \\frac{\\pi}{3}',
+        tExprDisp: 'θ - π/3',
+        target: Math.SQRT2 / 2,
+        targetTex: '\\frac{\\sqrt{2}}{2}',
+        targetDisp: '√2/2',
+        cardFormula: '\\cos\\left(\\theta - \\frac{\\pi}{3}\\right) = \\frac{\\sqrt{2}}{2}',
+        solutions: [
+          { theta: (1/12) * Math.PI, t: -0.25 * Math.PI, labelTh: 'π/12', labelT: '-π/4' },
+          { theta: (7/12) * Math.PI, t: 0.25 * Math.PI, labelTh: '7/12π', labelT: 'π/4' }
+        ]
+      },
+
+      // ------------------------------------------
+      // 発展問題 (1)〜(6)
+      // ------------------------------------------
+      n_eq1: {
+        id: 'n_eq1',
+        category: 'eq',
+        badge: '(1)',
+        name: '(1) sin 3θ = 1',
+        type: 'eq',
+        fn: 'sin',
+        k: 3,
+        alpha: 0,
+        alphaTex: '0',
+        tExprTex: '3\\theta',
+        tExprDisp: '3θ',
+        target: 1,
+        targetTex: '1',
+        targetDisp: '1',
+        cardFormula: '\\sin 3\\theta = 1',
+        solutions: [
+          { theta: (1/6) * Math.PI, t: 0.5 * Math.PI, labelTh: 'π/6', labelT: 'π/2' },
+          { theta: (5/6) * Math.PI, t: 2.5 * Math.PI, labelTh: '5/6π', labelT: '5/2π' },
+          { theta: 1.5 * Math.PI, t: 4.5 * Math.PI, labelTh: '3/2π', labelT: '9/2π' }
+        ]
+      },
+      n_eq2: {
+        id: 'n_eq2',
+        category: 'eq',
+        badge: '(2)',
+        name: '(2) cos(3θ - π/3) = -1/2',
+        type: 'eq',
+        fn: 'cos',
+        k: 3,
+        alpha: -Math.PI / 3,
+        alphaTex: '-\\frac{\\pi}{3}',
+        tExprTex: '3\\theta - \\frac{\\pi}{3}',
+        tExprDisp: '3θ - π/3',
+        target: -0.5,
+        targetTex: '-\\frac{1}{2}',
+        targetDisp: '-1/2',
+        cardFormula: '\\cos\\left(3\\theta - \\frac{\\pi}{3}\\right) = -\\frac{1}{2}',
+        solutions: [
+          { theta: (1/3) * Math.PI, t: (2/3) * Math.PI, labelTh: 'π/3', labelT: '2/3π' },
+          { theta: (5/9) * Math.PI, t: (4/3) * Math.PI, labelTh: '5/9π', labelT: '4/3π' },
+          { theta: Math.PI, t: (8/3) * Math.PI, labelTh: 'π', labelT: '8/3π' },
+          { theta: (11/9) * Math.PI, t: (10/3) * Math.PI, labelTh: '11/9π', labelT: '10/3π' },
+          { theta: (5/3) * Math.PI, t: (14/3) * Math.PI, labelTh: '5/3π', labelT: '14/3π' },
+          { theta: (17/9) * Math.PI, t: (16/3) * Math.PI, labelTh: '17/9π', labelT: '16/3π' }
+        ]
+      },
+      n_eq3: {
+        id: 'n_eq3',
+        category: 'eq',
+        badge: '(3)',
+        name: '(3) sin(2θ + π/6) = √3/2',
+        type: 'eq',
+        fn: 'sin',
+        k: 2,
+        alpha: Math.PI / 6,
+        alphaTex: '\\frac{\\pi}{6}',
+        tExprTex: '2\\theta + \\frac{\\pi}{6}',
+        tExprDisp: '2θ + π/6',
+        target: Math.sqrt(3) / 2,
+        targetTex: '\\frac{\\sqrt{3}}{2}',
+        targetDisp: '√3/2',
+        cardFormula: '\\sin\\left(2\\theta + \\frac{\\pi}{6}\\right) = \\frac{\\sqrt{3}}{2}',
+        solutions: [
+          { theta: (1/12) * Math.PI, t: (1/3) * Math.PI, labelTh: 'π/12', labelT: 'π/3' },
+          { theta: 0.25 * Math.PI, t: (2/3) * Math.PI, labelTh: 'π/4', labelT: '2/3π' },
+          { theta: (13/12) * Math.PI, t: (7/3) * Math.PI, labelTh: '13/12π', labelT: '7/3π' },
+          { theta: 1.25 * Math.PI, t: (8/3) * Math.PI, labelTh: '5/4π', labelT: '8/3π' }
+        ]
+      },
+      n_ineq4: {
+        id: 'n_ineq4',
+        category: 'ineq',
+        badge: '(4)',
+        name: '(4) cos 2θ > -1/√2',
+        defaultSign: 'gt',
+        fn: 'cos',
+        k: 2,
+        alpha: 0,
+        alphaTex: '0',
+        tExprTex: '2\\theta',
+        tExprDisp: '2θ',
+        target: -1 / Math.SQRT2,
+        targetTex: '-\\frac{1}{\\sqrt{2}}',
+        targetDisp: '-1/√2',
+        cardFormula: '\\cos 2\\theta > -\\frac{1}{\\sqrt{2}}'
+      },
+      n_ineq5: {
+        id: 'n_ineq5',
+        category: 'ineq',
+        badge: '(5)',
+        name: '(5) sin(3θ + π/6) ≧ √3/2',
+        defaultSign: 'ge',
+        fn: 'sin',
+        k: 3,
+        alpha: Math.PI / 6,
+        alphaTex: '\\frac{\\pi}{6}',
+        tExprTex: '3\\theta + \\frac{\\pi}{6}',
+        tExprDisp: '3θ + π/6',
+        target: Math.sqrt(3) / 2,
+        targetTex: '\\frac{\\sqrt{3}}{2}',
+        targetDisp: '√3/2',
+        cardFormula: '\\sin\\left(3\\theta + \\frac{\\pi}{6}\\right) \\ge \\frac{\\sqrt{3}}{2}'
+      },
+      n_ineq6: {
+        id: 'n_ineq6',
+        category: 'ineq',
+        badge: '(6)',
+        name: '(6) cos(2θ - π/2) < 1/2',
+        defaultSign: 'lt',
+        fn: 'cos',
+        k: 2,
+        alpha: -0.5 * Math.PI,
+        alphaTex: '-\\frac{\\pi}{2}',
+        tExprTex: '2\\theta - \\frac{\\pi}{2}',
+        tExprDisp: '2θ - π/2',
+        target: 0.5,
+        targetTex: '\\frac{1}{2}',
+        targetDisp: '1/2',
+        cardFormula: '\\cos\\left(2\\theta - \\frac{\\pi}{2}\\right) < \\frac{1}{2}'
+      },
+
+      // ------------------------------------------
+      // 基本編 10 問
+      // ------------------------------------------
+      ex5: {
+        id: 'ex5',
+        category: 'eq',
+        badge: '例題 5',
+        name: '応用例題 5',
+        type: 'eq',
+        fn: 'sin',
+        k: 1,
+        alpha: -(2/3) * Math.PI,
+        alphaTex: '-\\frac{2}{3}\\pi',
+        tExprTex: '\\theta - \\frac{2}{3}\\pi',
+        tExprDisp: 'θ - 2/3π',
+        target: -Math.SQRT2 / 2,
+        targetTex: '-\\frac{\\sqrt{2}}{2}',
+        targetDisp: '-√2/2',
+        cardFormula: '\\sin\\left(\\theta - \\frac{2}{3}\\pi\\right) = -\\frac{\\sqrt{2}}{2}',
+        solutions: [
+          { theta: (5/12) * Math.PI, t: -Math.PI / 4, labelTh: '5/12π', labelT: '-π/4' },
+          { theta: (23/12) * Math.PI, t: (5/4) * Math.PI, labelTh: '23/12π', labelT: '5/4π' }
+        ]
+      },
+      eq1: {
+        id: 'eq1',
+        category: 'eq',
+        badge: '練習 (1)',
+        name: '練習 (1) 方程式',
+        type: 'eq',
+        fn: 'sin',
+        k: 2,
+        alpha: 0,
+        alphaTex: '0',
+        tExprTex: '2\\theta',
+        tExprDisp: '2θ',
+        target: Math.sqrt(3) / 2,
+        targetTex: '\\frac{\\sqrt{3}}{2}',
+        targetDisp: '√3/2',
+        cardFormula: '\\sin 2\\theta = \\frac{\\sqrt{3}}{2}',
+        solutions: [
+          { theta: (1/6) * Math.PI, t: (1/3) * Math.PI, labelTh: 'π/6', labelT: 'π/3' },
+          { theta: (1/3) * Math.PI, t: (2/3) * Math.PI, labelTh: 'π/3', labelT: '2π/3' },
+          { theta: (7/6) * Math.PI, t: (7/3) * Math.PI, labelTh: '7/6π', labelT: '7/3π' },
+          { theta: (4/3) * Math.PI, t: (8/3) * Math.PI, labelTh: '4/3π', labelT: '8/3π' }
+        ]
+      },
+      eq2: {
+        id: 'eq2',
+        category: 'eq',
+        badge: '練習 *(2)',
+        name: '練習 *(2) 方程式',
+        type: 'eq',
+        fn: 'cos',
+        k: 2,
+        alpha: 0,
+        alphaTex: '0',
+        tExprTex: '2\\theta',
+        tExprDisp: '2θ',
+        target: -1 / Math.SQRT2,
+        targetTex: '-\\frac{1}{\\sqrt{2}}',
+        targetDisp: '-1/√2',
+        cardFormula: '\\cos 2\\theta = -\\frac{1}{\\sqrt{2}}',
+        solutions: [
+          { theta: (3/8) * Math.PI, t: (3/4) * Math.PI, labelTh: '3/8π', labelT: '3/4π' },
+          { theta: (5/8) * Math.PI, t: (5/4) * Math.PI, labelTh: '5/8π', labelT: '5/4π' },
+          { theta: (11/8) * Math.PI, t: (11/4) * Math.PI, labelTh: '11/8π', labelT: '11/4π' },
+          { theta: (13/8) * Math.PI, t: (13/4) * Math.PI, labelTh: '13/8π', labelT: '13/4π' }
+        ]
+      },
+      eq3: {
+        id: 'eq3',
+        category: 'eq',
+        badge: '練習 *(3)',
+        name: '練習 *(3) 方程式',
+        type: 'eq',
+        fn: 'sin',
+        k: 1,
+        alpha: -Math.PI / 3,
+        alphaTex: '-\\frac{\\pi}{3}',
+        tExprTex: '\\theta - \\frac{\\pi}{3}',
+        tExprDisp: 'θ - π/3',
+        target: 0.5,
+        targetTex: '\\frac{1}{2}',
+        targetDisp: '1/2',
+        cardFormula: '\\sin\\left(\\theta - \\frac{\\pi}{3}\\right) = \\frac{1}{2}',
+        solutions: [
+          { theta: 0.5 * Math.PI, t: (1/6) * Math.PI, labelTh: 'π/2', labelT: 'π/6' },
+          { theta: (7/6) * Math.PI, t: (5/6) * Math.PI, labelTh: '7/6π', labelT: '5/6π' }
+        ]
+      },
+      eq4: {
+        id: 'eq4',
+        category: 'eq',
+        badge: '練習 (4)',
+        name: '練習 (4) 方程式',
+        type: 'eq',
+        fn: 'cos',
+        k: 1,
+        alpha: Math.PI / 6,
+        alphaTex: '\\frac{\\pi}{6}',
+        tExprTex: '\\theta + \\frac{\\pi}{6}',
+        tExprDisp: 'θ + π/6',
+        target: 1,
+        targetTex: '1',
+        targetDisp: '1',
+        cardFormula: '\\cos\\left(\\theta + \\frac{\\pi}{6}\\right) = 1',
+        solutions: [
+          { theta: (11/6) * Math.PI, t: 2 * Math.PI, labelTh: '11/6π', labelT: '2π' }
+        ]
+      },
+      eq5: {
+        id: 'eq5',
+        category: 'eq',
+        badge: '練習 *(5)',
+        name: '練習 *(5) 方程式',
+        type: 'eq',
+        fn: 'sin',
+        k: 2,
+        alpha: -Math.PI / 6,
+        alphaTex: '-\\frac{\\pi}{6}',
+        tExprTex: '2\\theta - \\frac{\\pi}{6}',
+        tExprDisp: '2θ - π/6',
+        target: -0.5,
+        targetTex: '-\\frac{1}{2}',
+        targetDisp: '-1/2',
+        cardFormula: '\\sin\\left(2\\theta - \\frac{\\pi}{6}\\right) = -\\frac{1}{2}',
+        solutions: [
+          { theta: 0, t: -Math.PI / 6, labelTh: '0', labelT: '-π/6' },
+          { theta: (2/3) * Math.PI, t: (7/6) * Math.PI, labelTh: '2/3π', labelT: '7/6π' },
+          { theta: Math.PI, t: (11/6) * Math.PI, labelTh: 'π', labelT: '11/6π' },
+          { theta: (5/3) * Math.PI, t: (19/6) * Math.PI, labelTh: '5/3π', labelT: '19/6π' }
+        ]
+      },
+      eq6: {
+        id: 'eq6',
+        category: 'eq',
+        badge: '練習 (6)',
+        name: '練習 (6) 方程式',
+        type: 'eq',
+        fn: 'cos',
+        k: 1/3,
+        alpha: -Math.PI / 4,
+        alphaTex: '-\\frac{\\pi}{4}',
+        tExprTex: '\\frac{\\theta}{3} - \\frac{\\pi}{4}',
+        tExprDisp: 'θ/3 - π/4',
+        target: 1 / Math.SQRT2,
+        targetTex: '\\frac{1}{\\sqrt{2}}',
+        targetDisp: '1/√2',
+        cardFormula: '\\cos\\left(\\frac{\\theta}{3} - \\frac{\\pi}{4}\\right) = \\frac{1}{\\sqrt{2}}',
+        solutions: [
+          { theta: 0, t: -Math.PI / 4, labelTh: '0', labelT: '-π/4' },
+          { theta: 1.5 * Math.PI, t: Math.PI / 4, labelTh: '3/2π', labelT: 'π/4' }
+        ]
+      },
+      ineq1: {
+        id: 'ineq1',
+        category: 'ineq',
+        badge: '不等式 (1)',
+        name: '不等式 (1)',
+        defaultSign: 'gt',
+        fn: 'sin',
+        k: 2,
+        alpha: 0,
+        alphaTex: '0',
+        tExprTex: '2\\theta',
+        tExprDisp: '2θ',
+        target: 0.5,
+        targetTex: '\\frac{1}{2}',
+        targetDisp: '1/2',
+        cardFormula: '\\sin 2\\theta > \\frac{1}{2}'
+      },
+      ineq3: {
+        id: 'ineq3',
+        category: 'ineq',
+        badge: '不等式 (3)',
+        name: '不等式 (3)',
+        defaultSign: 'le',
+        fn: 'cos',
+        k: 1,
+        alpha: Math.PI / 6,
+        alphaTex: '\\frac{\\pi}{6}',
+        tExprTex: '\\theta + \\frac{\\pi}{6}',
+        tExprDisp: 'θ + π/6',
+        target: 0.5,
+        targetTex: '\\frac{1}{2}',
+        targetDisp: '1/2',
+        cardFormula: '\\cos\\left(\\theta + \\frac{\\pi}{6}\\right) \\le \\frac{1}{2}'
+      },
+      ineq4: {
+        id: 'ineq4',
+        category: 'ineq',
+        badge: '不等式 *(4)',
+        name: '不等式 *(4)',
+        defaultSign: 'gt',
+        fn: 'sin',
+        k: 1,
+        alpha: Math.PI / 3,
+        alphaTex: '\\frac{\\pi}{3}',
+        tExprTex: '\\theta + \\frac{\\pi}{3}',
+        tExprDisp: 'θ + π/3',
+        target: 1 / Math.SQRT2,
+        targetTex: '\\frac{1}{\\sqrt{2}}',
+        targetDisp: '1/√2',
+        cardFormula: '\\sin\\left(\\theta + \\frac{\\pi}{3}\\right) > \\frac{1}{\\sqrt{2}}'
+      }
+    };
+
+    // 範囲設定メタデータ
+    const RANGE_METAS = {
+      '0.5pi': { thetaMax: 0.5 * Math.PI, label: 'π/2', thetaTex: '\\frac{\\pi}{2}' },
+      '1pi':   { thetaMax: Math.PI,       label: 'π',   thetaTex: '\\pi' },
+      '1.5pi': { thetaMax: 1.5 * Math.PI, label: '3π/2', thetaTex: '\\frac{3}{2}\\pi' },
+      '2pi':   { thetaMax: 2 * Math.PI,   label: '2π',  thetaTex: '2\\pi' }
+    };
+
+    // 不等号メタデータ
+    const SIGN_METAS = {
+      'gt': { symbol: '>', symbolTex: '>',  symbolDisp: '>', dispName: '大なり (>)',  desc: '目標値より大きい範囲（境界点は含みません ○）' },
+      'ge': { symbol: '≧', symbolTex: '\\ge', symbolDisp: '≧', dispName: '以上 (≧)',   desc: '目標値以上の範囲（境界点を含みます ●）' },
+      'lt': { symbol: '<', symbolTex: '<',  symbolDisp: '<', dispName: '小なり (<)',  desc: '目標値より小さい範囲（境界点は含みません ○）' },
+      'le': { symbol: '≦', symbolTex: '\\le', symbolDisp: '≦', dispName: '以下 (≦)',   desc: '目標値以下の範囲（境界点を含みます ●）' }
+    };
+
+    // アプリケーション状態
+    let currentProbKey = 'add_eq1';
+    let currentRangeKey = '2pi';
+    let currentIneqSign = 'gt'; // 'gt' | 'ge' | 'lt' | 'le'
+    let displayMode = 'both';   // 'circle' | 'graph' | 'both'
+    let graphAxis = 't';        // 'theta' | 't'
+    let currentTheta = 0;
+    let isPlaying = false;
+    let animId = null;
+    let lastAnimTime = 0;
+    let currentModalFilter = 'all'; // 'all' | 'eq' | 'ineq'
+
+    // DOM要素キャッシュ
+    const circleContainer = document.getElementById('circleContainer');
+    const graphContainer = document.getElementById('graphContainer');
+    const circleCanvas = document.getElementById('circleCanvas');
+    const graphCanvas = document.getElementById('graphCanvas');
+    const ctxCircle = circleCanvas.getContext('2d');
+    const ctxGraph = graphCanvas.getContext('2d');
+
+    const thetaSlider = document.getElementById('thetaSlider');
+    const sliderMaxLabel = document.getElementById('sliderMaxLabel');
+    const labelCurrentTheta = document.getElementById('labelCurrentTheta');
+    const labelCurrentT = document.getElementById('labelCurrentT');
+    const currentSinVal = document.getElementById('currentSinVal');
+    const meterFnLabel = document.getElementById('meterFnLabel');
+
+    const headerProbBadge = document.getElementById('headerProbBadge');
+    const headerProbMath = document.getElementById('headerProbMath');
+    const sidebarProbBadge = document.getElementById('sidebarProbBadge');
+    const sidebarProbTitle = document.getElementById('sidebarProbTitle');
+    const sidebarProbFormula = document.getElementById('sidebarProbFormula');
+
+    // 不等号コントロール要素
+    const ineqSignSection = document.getElementById('ineqSignSection');
+    const currentIneqSignBadge = document.getElementById('currentIneqSignBadge');
+    const ineqSignDescription = document.getElementById('ineqSignDescription');
+
+    const modeCircleBtn = document.getElementById('modeCircleBtn');
+    const modeGraphBtn = document.getElementById('modeGraphBtn');
+    const modeBothBtn = document.getElementById('modeBothBtn');
+
+    const axisThetaBtn = document.getElementById('axisThetaBtn');
+    const axisTBtn = document.getElementById('axisTBtn');
+    const axisDescription = document.getElementById('axisDescription');
+
+    const thetaRangeGroup = document.getElementById('thetaRangeGroup');
+    const snapSectionTitle = document.getElementById('snapSectionTitle');
+    const snapButtonsContainer = document.getElementById('snapButtonsContainer');
+
+    const labelTFormula = document.getElementById('labelTFormula');
+    const labelTDomain = document.getElementById('labelTDomain');
+    const labelTargetValue = document.getElementById('labelTargetValue');
+
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const playText = document.getElementById('playText');
+
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fsIconExpand = document.getElementById('fsIconExpand');
+    const fsIconCompress = document.getElementById('fsIconCompress');
+
+    // モーダル要素
+    const probModal = document.getElementById('probModal');
+    const headerOpenModalBtn = document.getElementById('headerOpenModalBtn');
+    const openProbModalBtn = document.getElementById('openProbModalBtn');
+    const closeProbModalBtn = document.getElementById('closeProbModalBtn');
+    const closeProbModalFooterBtn = document.getElementById('closeProbModalFooterBtn');
+    const probCardsGrid = document.getElementById('probCardsGrid');
+
+    // ==========================================
+    // 数学ヘルパー：分数フォーマット
+    // ==========================================
+    function formatPiFrac(val) {
+      const factor = val / Math.PI;
+      const eps = 1e-4;
+      for (let d = 1; d <= 36; d++) {
+        const n = Math.round(factor * d);
+        if (Math.abs(factor - n / d) < eps) {
+          if (n === 0) return '0';
+          if (d === 1) return (n === 1 ? 'π' : (n === -1 ? '-π' : n + 'π'));
+          return (n === 1 ? '' : (n === -1 ? '-' : n)) + 'π/' + d;
+        }
+      }
+      return (factor).toFixed(2) + 'π';
+    }
+
+    // ==========================================
+    // 汎用不等式ソルバー：任意の不等号・変域での解区間と境界点を自動導出
+    // ==========================================
+    function solveInequality(fn, k, alpha, target, sign, thetaMax) {
+      const tMin = alpha;
+      const tMax = k * thetaMax + alpha;
+
+      let baseRoots = [];
+      if (fn === 'sin') {
+        const asin = Math.asin(target);
+        const r1 = asin >= 0 ? asin : 2 * Math.PI + asin;
+        const r2 = Math.PI - asin;
+        baseRoots = [r1, r2].map(r => ((r % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI));
+      } else {
+        const acos = Math.acos(target);
+        const r1 = acos;
+        const r2 = 2 * Math.PI - acos;
+        baseRoots = [r1, r2].map(r => ((r % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI));
+      }
+      baseRoots.sort((a, b) => a - b);
+
+      const minK = Math.floor((tMin - 2 * Math.PI) / (2 * Math.PI));
+      const maxK = Math.ceil((tMax + 2 * Math.PI) / (2 * Math.PI));
+      const allRoots = [];
+      for (let p = minK; p <= maxK; p++) {
+        for (const br of baseRoots) {
+          const root = br + p * 2 * Math.PI;
+          if (root >= tMin - 1e-7 && root <= tMax + 1e-7) {
+            if (!allRoots.some(r => Math.abs(r - root) < 1e-6)) {
+              allRoots.push(root);
+            }
+          }
+        }
+      }
+      allRoots.sort((a, b) => a - b);
+
+      const cuts = [tMin];
+      for (const r of allRoots) {
+        if (r > tMin + 1e-6 && r < tMax - 1e-6) {
+          cuts.push(r);
+        }
+      }
+      cuts.push(tMax);
+
+      const intervals = [];
+      for (let i = 0; i < cuts.length - 1; i++) {
+        const a = cuts[i];
+        const b = cuts[i + 1];
+        const mid = (a + b) / 2;
+        const val = fn === 'sin' ? Math.sin(mid) : Math.cos(mid);
+        let ok = false;
+        if (sign === 'gt') ok = val > target + 1e-6;
+        else if (sign === 'ge') ok = val >= target - 1e-6;
+        else if (sign === 'lt') ok = val < target - 1e-6;
+        else if (sign === 'le') ok = val <= target + 1e-6;
+
+        if (ok) {
+          const minTh = Math.max(0, (a - alpha) / k);
+          const maxTh = Math.min(thetaMax, (b - alpha) / k);
+
+          const isMinZero = minTh <= 1e-6;
+          const isMaxEnd = maxTh >= thetaMax - 1e-6;
+          const leftRel = isMinZero ? '≤' : ((sign === 'ge' || sign === 'le') ? '≤' : '<');
+          const rightRel = isMaxEnd ? '<' : ((sign === 'ge' || sign === 'le') ? '≤' : '<');
+
+          const minStr = isMinZero ? '0' : formatPiFrac(minTh);
+          const maxStr = isMaxEnd ? formatPiFrac(thetaMax) : formatPiFrac(maxTh);
+          const labelTh = `${minStr} ${leftRel} θ ${rightRel} ${maxStr}`;
+
+          intervals.push({ minT: a, maxT: b, minTh, maxTh, labelTh });
+        }
+      }
+
+      // 境界点一覧
+      const boundaries = allRoots
+        .filter(r => r >= tMin - 1e-6 && r <= tMax + 1e-6)
+        .map(r => {
+          const th = (r - alpha) / k;
+          return { t: r, theta: th, labelTh: formatPiFrac(th), labelT: formatPiFrac(r) };
+        });
+
+      return { allRoots, intervals, boundaries };
+    }
+
+    // ==========================================
+    // ヘルパー：問題と範囲に応じた動的設定を算出
+    // ==========================================
+    function getProblemRangeConfig(probKey, rangeKey) {
+      const p = PROBLEMS[probKey];
+      const r = RANGE_METAS[rangeKey];
+      const thetaMax = r.thetaMax;
+      const tMin = p.alpha;
+      const tMax = p.k * thetaMax + p.alpha;
+
+      // 方程式の解
+      let activeSolutions = [];
+      if (p.category === 'eq') {
+        activeSolutions = p.solutions.filter(s => s.theta < thetaMax - 1e-6);
+      }
+
+      // 不等式の解区間と境界点
+      let activeIntervals = [];
+      let activeBoundaries = [];
+      if (p.category === 'ineq') {
+        const solved = solveInequality(p.fn, p.k, p.alpha, p.target, currentIneqSign, thetaMax);
+        activeIntervals = solved.intervals;
+        activeBoundaries = solved.boundaries;
+      }
+
+      // バッジ表示テキスト
+      let badgeInfo = '';
+      if (p.category === 'eq') {
+        badgeInfo = activeSolutions.length > 0 ? (activeSolutions.length + '個') : '解なし';
+      } else {
+        badgeInfo = activeIntervals.length > 0 ? (activeIntervals.length + '区間') : '解なし';
+      }
+
+      const tDomainText = formatPiFrac(tMin) + ' ≤ t < ' + formatPiFrac(tMax);
+
+      return {
+        thetaMax,
+        tMin,
+        tMax,
+        tDomainText,
+        activeSolutions,
+        activeIntervals,
+        activeBoundaries,
+        badgeInfo
+      };
+    }
+
+    // ==========================================
+    // UI 更新
+    // ==========================================
+    function updateProblemUI() {
+      const p = PROBLEMS[currentProbKey];
+      const cfg = getProblemRangeConfig(currentProbKey, currentRangeKey);
+      const rMeta = RANGE_METAS[currentRangeKey];
+      const effectiveType = p.category === 'eq' ? 'eq' : currentIneqSign;
+      const signMeta = SIGN_METAS[effectiveType] || { symbol: '=', symbolTex: '=', symbolDisp: '=' };
+
+      // 不等号選択セクションの表示制御
+      if (p.category === 'ineq') {
+        ineqSignSection.classList.remove('hidden');
+        currentIneqSignBadge.textContent = signMeta.symbolDisp;
+        ineqSignDescription.textContent = signMeta.desc;
+
+        document.querySelectorAll('.ineq-sign-btn').forEach(btn => {
+          if (btn.dataset.sign === currentIneqSign) {
+            btn.className = 'ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center bg-emerald-600 text-white shadow-sm border border-emerald-500';
+          } else {
+            btn.className = 'ineq-sign-btn py-1.5 rounded text-xs font-mono font-bold transition text-center text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent';
+          }
+        });
+      } else {
+        ineqSignSection.classList.add('hidden');
+      }
+
+      // ヘッダー情報
+      headerProbBadge.textContent = p.badge;
+      if (p.category === 'eq') {
+        headerProbBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      } else {
+        headerProbBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      }
+
+      let formulaTex = '';
+      if (p.category === 'eq') {
+        formulaTex = p.cardFormula;
+      } else {
+        formulaTex = `\\${p.fn}\\left(${p.tExprTex}\\right) ${signMeta.symbolTex} ${p.targetTex}`;
+      }
+      const fullTex = `0 \\le \\theta < ${rMeta.thetaTex} \\text{ のとき、 } ${formulaTex}`;
+      if (window.katex) {
+        katex.render(fullTex, headerProbMath, { displayMode: false, throwOnError: false });
+      }
+
+      // サイドバー問題カード
+      sidebarProbBadge.textContent = p.badge;
+      sidebarProbBadge.className = p.category === 'eq'
+        ? 'px-1.5 py-0.5 rounded text-[10px] bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30'
+        : 'px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30';
+      sidebarProbTitle.textContent = p.name;
+      sidebarProbFormula.textContent = `${p.fn}(${p.tExprDisp}) ${signMeta.symbolDisp} ${p.targetDisp}`;
+
+      // メーターラベル（sin か cos か）
+      meterFnLabel.textContent = p.fn === 'sin' ? 'sin 値: ' : 'cos 値: ';
+
+      // スライダー上限更新
+      thetaSlider.max = cfg.thetaMax;
+      sliderMaxLabel.textContent = rMeta.label;
+      if (currentTheta > cfg.thetaMax) {
+        currentTheta = cfg.thetaMax;
+        thetaSlider.value = currentTheta;
+      }
+
+      // 範囲ボタンのバッジ更新
+      document.querySelectorAll('.range-btn').forEach(btn => {
+        const lim = btn.dataset.limit;
+        const bCfg = getProblemRangeConfig(currentProbKey, lim);
+        const badgeSpan = btn.querySelector('.badge-info');
+        if (badgeSpan) {
+          badgeSpan.textContent = bCfg.badgeInfo;
+        }
+        if (lim === currentRangeKey) {
+          btn.className = 'range-btn py-1.5 px-3 rounded text-left font-mono text-xs bg-amber-950/70 border border-amber-600 text-amber-200 font-bold transition flex items-center justify-between';
+        } else {
+          btn.className = 'range-btn py-1.5 px-3 rounded text-left font-mono text-xs text-slate-300 hover:text-white hover:bg-slate-900 transition flex items-center justify-between';
+        }
+      });
+
+      // クイックスナップボタン再生成
+      snapButtonsContainer.innerHTML = '';
+      if (p.category === 'eq') {
+        snapSectionTitle.textContent = '解へクイックスナップ';
+        if (cfg.activeSolutions.length === 0) {
+          snapButtonsContainer.innerHTML = '<div class="col-span-2 text-center text-slate-500 py-2">この範囲に解はありません</div>';
+        } else {
+          cfg.activeSolutions.forEach((sol, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'py-2 px-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/80 text-amber-300 text-xs font-mono font-bold transition shadow-sm flex flex-col items-center justify-center';
+            btn.innerHTML = '<span class="text-[10px] text-slate-400 font-normal">解 ' + (idx + 1) + '</span><span>θ = ' + sol.labelTh + '</span>';
+            btn.onclick = () => {
+              stopAnimation();
+              currentTheta = sol.theta;
+              thetaSlider.value = currentTheta;
+              updateState();
+            };
+            snapButtonsContainer.appendChild(btn);
+          });
+        }
+      } else {
+        snapSectionTitle.textContent = '境界・端点へスナップ';
+        const pts = [
+          { theta: 0, labelTh: '0' },
+          ...cfg.activeBoundaries
+        ];
+        pts.forEach(pt => {
+          const btn = document.createElement('button');
+          btn.className = 'py-2 px-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/80 text-emerald-300 text-xs font-mono font-bold transition shadow-sm flex flex-col items-center justify-center';
+          btn.innerHTML = '<span class="text-[10px] text-slate-400 font-normal">境界</span><span>θ = ' + pt.labelTh + '</span>';
+          btn.onclick = () => {
+            stopAnimation();
+            currentTheta = Math.min(pt.theta, cfg.thetaMax);
+            thetaSlider.value = currentTheta;
+            updateState();
+          };
+          snapButtonsContainer.appendChild(btn);
+        });
+      }
+
+      // リアルタイムモニター固定値
+      labelTFormula.textContent = 't = ' + p.tExprDisp;
+      labelTDomain.textContent = cfg.tDomainText;
+      labelTargetValue.textContent = p.targetDisp;
+
+      // グラフ横軸説明
+      updateAxisUI();
+
+      updateState();
+    }
+
+    function updateAxisUI() {
+      const p = PROBLEMS[currentProbKey];
+      if (graphAxis === 't') {
+        axisTBtn.className = 'py-2 px-2 rounded-md text-xs font-mono font-bold transition text-center bg-sky-600 text-white shadow-sm';
+        axisThetaBtn.className = 'py-2 px-2 rounded-md text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900';
+        axisDescription.textContent = '横軸は置換角 t（基準波 y = ' + p.fn + ' t と直線 y = ' + p.targetDisp + '）';
+      } else {
+        axisThetaBtn.className = 'py-2 px-2 rounded-md text-xs font-mono font-bold transition text-center bg-sky-600 text-white shadow-sm';
+        axisTBtn.className = 'py-2 px-2 rounded-md text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900';
+        axisDescription.textContent = '横軸は探索角 θ（合成波 y = ' + p.fn + '(' + p.tExprDisp + ')）';
+      }
+    }
+
+    // ==========================================
+    // 表示形式の切り替え
+    // ==========================================
+    function setMode(mode) {
+      displayMode = mode;
+      modeCircleBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 text-slate-400 hover:text-slate-200 hover:bg-slate-900';
+      modeGraphBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 text-slate-400 hover:text-slate-200 hover:bg-slate-900';
+      modeBothBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 text-slate-400 hover:text-slate-200 hover:bg-slate-900';
+
+      if (mode === 'circle') {
+        circleContainer.classList.remove('hidden');
+        graphContainer.classList.add('hidden');
+        modeCircleBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 bg-sky-600 text-white shadow-sm font-semibold';
+      } else if (mode === 'graph') {
+        circleContainer.classList.add('hidden');
+        graphContainer.classList.remove('hidden');
+        modeGraphBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 bg-sky-600 text-white shadow-sm font-semibold';
+      } else {
+        circleContainer.classList.remove('hidden');
+        graphContainer.classList.remove('hidden');
+        modeBothBtn.className = 'w-full py-2 px-3 rounded-md text-xs font-medium transition flex items-center gap-2.5 bg-sky-600 text-white shadow-sm font-semibold';
+      }
+
+      requestAnimationFrame(() => {
+        resizeCanvases();
+        drawAll();
+      });
+    }
+
+    // ==========================================
+    // 問題選択ポップアップ モーダル管理
+    // ==========================================
+    function openModal() {
+      probModal.classList.remove('hidden');
+      renderModalCards();
+    }
+
+    function closeModal() {
+      probModal.classList.add('hidden');
+    }
+
+    function renderModalCards() {
+      probCardsGrid.innerHTML = '';
+      const keys = Object.keys(PROBLEMS);
+
+      keys.forEach(key => {
+        const p = PROBLEMS[key];
+        if (currentModalFilter === 'eq' && p.category !== 'eq') return;
+        if (currentModalFilter === 'ineq' && p.category !== 'ineq') return;
+
+        const isCurrent = (key === currentProbKey);
+        const card = document.createElement('div');
+        card.className = 'p-3.5 rounded-xl border transition cursor-pointer flex flex-col justify-between gap-2.5 ' + (
+          isCurrent
+            ? 'bg-sky-950/40 border-sky-500 shadow-lg shadow-sky-500/10 ring-1 ring-sky-500/50'
+            : 'bg-slate-950/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 shadow'
+        );
+
+        card.onclick = () => {
+          currentProbKey = key;
+          currentTheta = 0;
+          thetaSlider.value = 0;
+          if (p.category === 'ineq') {
+            currentIneqSign = p.defaultSign || 'gt';
+          }
+          closeModal();
+          updateProblemUI();
+        };
+
+        const badgeBg = p.category === 'eq'
+          ? 'bg-rose-500/20 text-rose-300 border-rose-500/30'
+          : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+
+        const categoryTag = p.category === 'eq'
+          ? '<span class="text-[10px] text-rose-400 font-bold">【方程式】</span>'
+          : '<span class="text-[10px] text-emerald-400 font-bold">【不等式】</span>';
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold border ${badgeBg}">${p.badge}</span>
+              ${categoryTag}
+            </div>
+            ${isCurrent ? '<span class="text-[10px] px-2 py-0.5 rounded bg-sky-500 text-white font-bold">選択中</span>' : ''}
+          </div>
+          <div class="py-1 text-center font-serif text-sm text-slate-100 card-katex-container">
+            $$${p.cardFormula}$$
+          </div>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+            <span>置換: t = ${p.tExprDisp}</span>
+            <span class="text-sky-400 hover:underline flex items-center gap-1">
+              選択する
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        `;
+
+        probCardsGrid.appendChild(card);
+      });
+
+      // KaTeX 自動レンダリング
+      if (window.renderMathInElement) {
+        renderMathInElement(probCardsGrid, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // モーダルイベントリスナー
+    headerOpenModalBtn.onclick = openModal;
+    openProbModalBtn.onclick = openModal;
+    closeProbModalBtn.onclick = closeModal;
+    closeProbModalFooterBtn.onclick = closeModal;
+    probModal.onclick = (e) => {
+      if (e.target === probModal) closeModal();
+    };
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !probModal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    document.querySelectorAll('.modal-tab').forEach(tab => {
+      tab.onclick = () => {
+        document.querySelectorAll('.modal-tab').forEach(t => {
+          t.className = 'modal-tab px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition';
+        });
+        tab.className = 'modal-tab px-4 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition';
+        currentModalFilter = tab.dataset.filter;
+        renderModalCards();
+      };
+    });
+
+    // 不等号選択ボタンリスナー
+    document.querySelectorAll('.ineq-sign-btn').forEach(btn => {
+      btn.onclick = () => {
+        currentIneqSign = btn.dataset.sign;
+        updateProblemUI();
+      };
+    });
+
+    // ==========================================
+    // キャンバスリサイズ & 描画基盤
+    // ==========================================
+    function resizeCanvases() {
+      const dpr = window.devicePixelRatio || 1;
+
+      if (!circleContainer.classList.contains('hidden')) {
+        const r1 = circleContainer.getBoundingClientRect();
+        if (r1.width > 0 && r1.height > 0) {
+          circleCanvas.width = r1.width * dpr;
+          circleCanvas.height = r1.height * dpr;
+          ctxCircle.resetTransform();
+          ctxCircle.scale(dpr, dpr);
+        }
+      }
+
+      if (!graphContainer.classList.contains('hidden')) {
+        const r2 = graphContainer.getBoundingClientRect();
+        if (r2.width > 0 && r2.height > 0) {
+          graphCanvas.width = r2.width * dpr;
+          graphCanvas.height = r2.height * dpr;
+          ctxGraph.resetTransform();
+          ctxGraph.scale(dpr, dpr);
+        }
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvases();
+      drawAll();
+    });
+
+    function updateState() {
+      const p = PROBLEMS[currentProbKey];
+      const t = p.k * currentTheta + p.alpha;
+      const fnVal = p.fn === 'sin' ? Math.sin(t) : Math.cos(t);
+
+      labelCurrentTheta.textContent = 'θ = ' + (currentTheta / Math.PI).toFixed(2) + 'π';
+      labelCurrentT.textContent = 't = ' + (t / Math.PI).toFixed(2) + 'π';
+      currentSinVal.textContent = fnVal.toFixed(3);
+
+      drawAll();
+    }
+
+    function drawAll() {
+      if (!circleContainer.classList.contains('hidden')) drawCircle();
+      if (!graphContainer.classList.contains('hidden')) drawGraph();
+    }
+
+    // ==========================================
+    // 単位円キャンバス描画
+    // ==========================================
+    function drawCircle() {
+      const rect = circleContainer.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (w === 0 || h === 0) return;
+
+      const ctx = ctxCircle;
+      ctx.clearRect(0, 0, w, h);
+
+      const p = PROBLEMS[currentProbKey];
+      const cfg = getProblemRangeConfig(currentProbKey, currentRangeKey);
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(w, h) * 0.39;
+
+      // 座標軸
+      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = '#334155';
+      ctx.beginPath();
+      ctx.moveTo(cx - radius * 1.34, cy);
+      ctx.lineTo(cx + radius * 1.34, cy);
+      ctx.moveTo(cx, cy - radius * 1.34);
+      ctx.lineTo(cx, cy + radius * 1.34);
+      ctx.stroke();
+
+      // 軸ラベル
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '13px Inter';
+      ctx.fillText('x', cx + radius * 1.36, cy + 4);
+      ctx.fillText('y', cx - 14, cy - radius * 1.36);
+      ctx.fillText('O', cx - 16, cy + 16);
+      ctx.fillText('1', cx + radius + 4, cy + 16);
+      ctx.fillText('-1', cx - radius - 20, cy + 16);
+      ctx.fillText('1', cx + 8, cy - radius - 4);
+      ctx.fillText('-1', cx + 8, cy + radius + 16);
+
+      // 目標値ラインの位置
+      const lineY = cy - p.target * radius;
+      const lineX = cx + p.target * radius;
+
+      // 不等式の場合の半平面ハイライト
+      if (p.category === 'ineq') {
+        ctx.save();
+        ctx.beginPath();
+        if (p.fn === 'sin') {
+          if (currentIneqSign === 'gt' || currentIneqSign === 'ge') {
+            ctx.rect(cx - radius * 1.25, cy - radius * 1.25, radius * 2.5, lineY - (cy - radius * 1.25));
+          } else {
+            ctx.rect(cx - radius * 1.25, lineY, radius * 2.5, (cy + radius * 1.25) - lineY);
+          }
+        } else {
+          if (currentIneqSign === 'le' || currentIneqSign === 'lt') {
+            ctx.rect(cx - radius * 1.25, cy - radius * 1.25, lineX - (cx - radius * 1.25), radius * 2.5);
+          } else {
+            ctx.rect(lineX, cy - radius * 1.25, (cx + radius * 1.25) - lineX, radius * 2.5);
+          }
+        }
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.08)';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 変域ガイド円弧（同心円トラック：k=1, 2, 3 の多周回転に対応）
+      ctx.save();
+      const deltaT = cfg.tMax - cfg.tMin;
+      const numLaps = Math.max(1, Math.ceil(deltaT / (2 * Math.PI)));
+      const baseR = radius;
+
+      for (let lap = 0; lap < numLaps; lap++) {
+        const lapStart = cfg.tMin + lap * 2 * Math.PI;
+        const lapEnd = Math.min(cfg.tMax, cfg.tMin + (lap + 1) * 2 * Math.PI);
+        if (lapStart >= cfg.tMax) break;
+
+        const trackR = baseR * (1.08 + lap * 0.08);
+        const alpha = 0.45 + 0.55 * ((lap + 1) / numLaps);
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, trackR, -lapEnd, -lapStart, false);
+        ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+        ctx.lineWidth = 2.6;
+        ctx.stroke();
+
+        // 最終先端マーク
+        if (lap === numLaps - 1 || lapEnd >= cfg.tMax - 1e-4) {
+          const ex = cx + trackR * Math.cos(-lapEnd);
+          const ey = cy + trackR * Math.sin(-lapEnd);
+          ctx.beginPath();
+          ctx.arc(ex, ey, 4.5, 0, 2 * Math.PI);
+          ctx.fillStyle = '#38bdf8';
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+
+      // 基本単位円
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      // 不等式の場合：円周上の解の区間円弧をエメラルド色で強調
+      if (p.category === 'ineq') {
+        cfg.activeIntervals.forEach(inv => {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, -inv.maxT, -inv.minT, false);
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 5;
+          ctx.stroke();
+          ctx.restore();
+        });
+
+        // 境界点マーク
+        const isSolid = (currentIneqSign === 'ge' || currentIneqSign === 'le');
+        cfg.activeBoundaries.forEach(b => {
+          const bx = cx + radius * Math.cos(b.t);
+          const by = cy - radius * Math.sin(b.t);
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(bx, by, 5, 0, 2 * Math.PI);
+          if (isSolid) {
+            ctx.fillStyle = '#10b981';
+            ctx.fill();
+          } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+          }
+          ctx.restore();
+        });
+      }
+
+      // 方程式の場合：解の動径と交点マーク
+      if (p.category === 'eq') {
+        cfg.activeSolutions.forEach((sol, idx) => {
+          const sx = cx + radius * Math.cos(sol.t);
+          const sy = cy - radius * Math.sin(sol.t);
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.setLineDash([3, 3]);
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(sx, sy);
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(sx, sy, 5.5, 0, 2 * Math.PI);
+          ctx.fillStyle = '#f59e0b';
+          ctx.fill();
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+          ctx.restore();
+        });
+      }
+
+      // 目標値ライン描画
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([6, 6]);
+      if (p.fn === 'sin') {
+        ctx.moveTo(cx - radius * 1.25, lineY);
+        ctx.lineTo(cx + radius * 1.25, lineY);
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 12px JetBrains Mono';
+        ctx.fillText('y = ' + p.targetDisp, cx + radius * 1.28, lineY + 4);
+      } else {
+        ctx.moveTo(lineX, cy - radius * 1.25);
+        ctx.lineTo(lineX, cy + radius * 1.25);
+        ctx.strokeStyle = '#fbbf24';
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 12px JetBrains Mono';
+        ctx.fillText('x = ' + p.targetDisp, lineX - 20, cy - radius * 1.28);
+      }
+      ctx.restore();
+
+      // 現在の角 t
+      const currT = p.k * currentTheta + p.alpha;
+      const px = cx + radius * Math.cos(currT);
+      const py = cy - radius * Math.sin(currT);
+
+      // 動径
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(px, py);
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.8;
+      ctx.stroke();
+
+      // 現在点 P
+      ctx.beginPath();
+      ctx.arc(px, py, 6.5, 0, 2 * Math.PI);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 投影補助線
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1.2;
+      if (p.fn === 'sin') {
+        ctx.moveTo(px, py);
+        ctx.lineTo(cx, py);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(cx, py, 4, 0, 2 * Math.PI);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fill();
+      } else {
+        ctx.moveTo(px, py);
+        ctx.lineTo(px, cy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(px, cy, 4, 0, 2 * Math.PI);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // ==========================================
+    // グラフキャンバス描画 (θ軸またはt軸)
+    // ==========================================
+    function drawGraph() {
+      const rect = graphContainer.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (w === 0 || h === 0) return;
+
+      const ctx = ctxGraph;
+      ctx.clearRect(0, 0, w, h);
+
+      const p = PROBLEMS[currentProbKey];
+      const cfg = getProblemRangeConfig(currentProbKey, currentRangeKey);
+
+      const padLeft = 55;
+      const padRight = 65;
+      const padTop = 32;
+      const padBottom = 48;
+      const plotW = w - padLeft - padRight;
+      const plotH = h - padTop - padBottom;
+      if (plotW <= 0 || plotH <= 0) return;
+
+      const minY = -1.25;
+      const maxY = 1.25;
+      function toScreenY(yVal) {
+        return padTop + ((maxY - yVal) / (maxY - minY)) * plotH;
+      }
+
+      // 水平グリッド線
+      ctx.save();
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      [-1, -0.5, 0.5, 1].forEach(yV => {
+        const yPos = toScreenY(yV);
+        ctx.beginPath();
+        ctx.moveTo(padLeft, yPos);
+        ctx.lineTo(padLeft + plotW, yPos);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '11px JetBrains Mono';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(yV.toString(), padLeft - 8, yPos);
+      });
+
+      // 目標直線 y = target
+      const targetScreenY = toScreenY(p.target);
+      ctx.beginPath();
+      ctx.setLineDash([6, 6]);
+      ctx.moveTo(padLeft, targetScreenY);
+      ctx.lineTo(padLeft + plotW + 15, targetScreenY);
+      ctx.strokeStyle = '#fbbf24';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = 'bold 12px JetBrains Mono';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('y = ' + p.targetDisp, padLeft + plotW + 18, targetScreenY);
+      ctx.restore();
+
+      const yZero = toScreenY(0);
+
+      // 不等式ハイライト帯
+      if (p.category === 'ineq') {
+        ctx.save();
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.08)';
+        if (currentIneqSign === 'gt' || currentIneqSign === 'ge') {
+          ctx.fillRect(padLeft, padTop, plotW, targetScreenY - padTop);
+        } else {
+          ctx.fillRect(padLeft, targetScreenY, plotW, padTop + plotH - targetScreenY);
+        }
+        ctx.restore();
+      }
+
+      // ==========================================
+      // 分岐 A: 横軸 t モード
+      // ==========================================
+      if (graphAxis === 't') {
+        const minT = Math.min(p.alpha, 0) - 0.25 * Math.PI;
+        const maxT = Math.max(p.alpha + p.k * 2 * Math.PI, 2 * Math.PI) + 0.35 * Math.PI;
+
+        function toScreenX_T(tVal) {
+          return padLeft + ((tVal - minT) / (maxT - minT)) * plotW;
+        }
+
+        const domXStart = toScreenX_T(cfg.tMin);
+        const domXEnd = toScreenX_T(cfg.tMax);
+
+        // 変域外を暗く、変域内を強調
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.70)';
+        ctx.fillRect(padLeft, padTop, Math.max(0, domXStart - padLeft), plotH);
+        ctx.fillRect(domXEnd, padTop, Math.max(0, padLeft + plotW - domXEnd), plotH);
+
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.09)';
+        ctx.fillRect(domXStart, padTop, domXEnd - domXStart, plotH);
+
+        // 境界縦線
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(domXStart, padTop);
+        ctx.lineTo(domXStart, padTop + plotH);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.moveTo(domXEnd, padTop);
+        ctx.lineTo(domXEnd, padTop + plotH);
+        ctx.stroke();
+        ctx.restore();
+
+        // 座標軸 (t, y)
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, yZero);
+        ctx.lineTo(padLeft + plotW + 20, yZero);
+        ctx.stroke();
+
+        const xZero = toScreenX_T(0);
+        ctx.beginPath();
+        ctx.moveTo(xZero, padTop - 12);
+        ctx.lineTo(xZero, padTop + plotH + 8);
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '12px Inter';
+        ctx.textAlign = 'left';
+        ctx.fillText('t', padLeft + plotW + 25, yZero + 3);
+        ctx.fillText('y', xZero + 6, padTop - 15);
+        ctx.fillText('O', xZero - 14, yZero + 16);
+
+        // 波形描画 y = sin t または y = cos t
+        ctx.save();
+        const steps = 450;
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+          const tVal = minT + (i / steps) * (maxT - minT);
+          const yVal = p.fn === 'sin' ? Math.sin(tVal) : Math.cos(tVal);
+          const px = toScreenX_T(tVal);
+          const py = toScreenY(yVal);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // 有効区間波（ハイライト）
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= steps; i++) {
+          const tVal = minT + (i / steps) * (maxT - minT);
+          if (tVal >= cfg.tMin - 1e-4 && tVal <= cfg.tMax + 1e-4) {
+            const yVal = p.fn === 'sin' ? Math.sin(tVal) : Math.cos(tVal);
+            const px = toScreenX_T(tVal);
+            const py = toScreenY(yVal);
+            if (!started) {
+              ctx.moveTo(px, py);
+              started = true;
+            } else {
+              ctx.lineTo(px, py);
+            }
+          }
+        }
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2.6;
+        ctx.stroke();
+        ctx.restore();
+
+        // 解または境界点のプロット
+        if (p.category === 'eq') {
+          cfg.activeSolutions.forEach(sol => {
+            const sx = toScreenX_T(sol.t);
+            const sy = toScreenY(p.target);
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(sx, sy, 5.5, 0, 2 * Math.PI);
+            ctx.fillStyle = '#f59e0b';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = '11px JetBrains Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText(sol.labelT, sx, sy + 18);
+            ctx.restore();
+          });
+        }
+
+        // 現在の点
+        const currT = p.k * currentTheta + p.alpha;
+        const currY = p.fn === 'sin' ? Math.sin(currT) : Math.cos(currT);
+        const curPx = toScreenX_T(currT);
+        const curPy = toScreenY(currY);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.moveTo(curPx, yZero);
+        ctx.lineTo(curPx, curPy);
+        ctx.moveTo(xZero, curPy);
+        ctx.lineTo(curPx, curPy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(curPx, curPy, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // ==========================================
+      // 分岐 B: 横軸 θ モード
+      // ==========================================
+      else {
+        const minTh = -0.1 * Math.PI;
+        const maxTh = 2.15 * Math.PI;
+
+        function toScreenX_Th(thVal) {
+          return padLeft + ((thVal - minTh) / (maxTh - minTh)) * plotW;
+        }
+
+        const domXStart = toScreenX_Th(0);
+        const domXEnd = toScreenX_Th(cfg.thetaMax);
+
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.70)';
+        ctx.fillRect(padLeft, padTop, Math.max(0, domXStart - padLeft), plotH);
+        ctx.fillRect(domXEnd, padTop, Math.max(0, padLeft + plotW - domXEnd), plotH);
+
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.09)';
+        ctx.fillRect(domXStart, padTop, domXEnd - domXStart, plotH);
+
+        // 境界縦線
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(domXStart, padTop);
+        ctx.lineTo(domXStart, padTop + plotH);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.moveTo(domXEnd, padTop);
+        ctx.lineTo(domXEnd, padTop + plotH);
+        ctx.stroke();
+        ctx.restore();
+
+        // 座標軸 (θ, y)
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, yZero);
+        ctx.lineTo(padLeft + plotW + 20, yZero);
+        ctx.stroke();
+
+        const xZero = toScreenX_Th(0);
+        ctx.beginPath();
+        ctx.moveTo(xZero, padTop - 12);
+        ctx.lineTo(xZero, padTop + plotH + 8);
+        ctx.stroke();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '12px Inter';
+        ctx.textAlign = 'left';
+        ctx.fillText('θ', padLeft + plotW + 25, yZero + 3);
+        ctx.fillText('y', xZero + 6, padTop - 15);
+        ctx.fillText('O', xZero - 14, yZero + 16);
+
+        // 目盛り ticks
+        [0.5, 1, 1.5, 2].forEach(m => {
+          const tTh = m * Math.PI;
+          const tx = toScreenX_Th(tTh);
+          ctx.beginPath();
+          ctx.moveTo(tx, yZero - 3);
+          ctx.lineTo(tx, yZero + 3);
+          ctx.strokeStyle = '#64748b';
+          ctx.stroke();
+
+          ctx.fillStyle = '#64748b';
+          ctx.font = '10px JetBrains Mono';
+          ctx.textAlign = 'center';
+          ctx.fillText((m === 1 ? 'π' : m + 'π'), tx, yZero + 16);
+        });
+
+        // 波形描画 y = fn(k*θ + alpha)
+        ctx.save();
+        const steps = 450;
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+          const thVal = minTh + (i / steps) * (maxTh - minTh);
+          const tVal = p.k * thVal + p.alpha;
+          const yVal = p.fn === 'sin' ? Math.sin(tVal) : Math.cos(tVal);
+          const px = toScreenX_Th(thVal);
+          const py = toScreenY(yVal);
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // 有効区間波
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= steps; i++) {
+          const thVal = minTh + (i / steps) * (maxTh - minTh);
+          if (thVal >= 0 && thVal <= cfg.thetaMax) {
+            const tVal = p.k * thVal + p.alpha;
+            const yVal = p.fn === 'sin' ? Math.sin(tVal) : Math.cos(tVal);
+            const px = toScreenX_Th(thVal);
+            const py = toScreenY(yVal);
+            if (!started) {
+              ctx.moveTo(px, py);
+              started = true;
+            } else {
+              ctx.lineTo(px, py);
+            }
+          }
+        }
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2.6;
+        ctx.stroke();
+        ctx.restore();
+
+        // 解または境界点のプロット
+        if (p.category === 'eq') {
+          cfg.activeSolutions.forEach(sol => {
+            const sx = toScreenX_Th(sol.theta);
+            const sy = toScreenY(p.target);
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(sx, sy, 5.5, 0, 2 * Math.PI);
+            ctx.fillStyle = '#f59e0b';
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = '11px JetBrains Mono';
+            ctx.textAlign = 'center';
+            ctx.fillText(sol.labelTh, sx, sy + 18);
+            ctx.restore();
+          });
+        }
+
+        // 現在の点
+        const currT = p.k * currentTheta + p.alpha;
+        const currY = p.fn === 'sin' ? Math.sin(currT) : Math.cos(currT);
+        const curPx = toScreenX_Th(currentTheta);
+        const curPy = toScreenY(currY);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = '#94a3b8';
+        ctx.moveTo(curPx, yZero);
+        ctx.lineTo(curPx, curPy);
+        ctx.moveTo(xZero, curPy);
+        ctx.lineTo(curPx, curPy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(curPx, curPy, 7, 0, 2 * Math.PI);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    // ==========================================
+    // アニメーション制御
+    // ==========================================
+    function togglePlay() {
+      if (isPlaying) stopAnimation();
+      else startAnimation();
+    }
+
+    function startAnimation() {
+      isPlaying = true;
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+      playText.textContent = '停止';
+      lastAnimTime = performance.now();
+      animId = requestAnimationFrame(step);
+    }
+
+    function stopAnimation() {
+      isPlaying = false;
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+      playText.textContent = '自動進行';
+      if (animId) cancelAnimationFrame(animId);
+      animId = null;
+    }
+
+    function step(timestamp) {
+      if (!isPlaying) return;
+      const dt = (timestamp - lastAnimTime) / 1000;
+      lastAnimTime = timestamp;
+
+      const cfg = getProblemRangeConfig(currentProbKey, currentRangeKey);
+      currentTheta += 0.45 * dt;
+      if (currentTheta > cfg.thetaMax) {
+        currentTheta = 0;
+      }
+
+      thetaSlider.value = currentTheta;
+      updateState();
+
+      animId = requestAnimationFrame(step);
+    }
+
+    // ==========================================
+    // 全画面表示
+    // ==========================================
+    fullscreenBtn.onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        fsIconExpand.classList.add('hidden');
+        fsIconCompress.classList.remove('hidden');
+      } else {
+        fsIconExpand.classList.remove('hidden');
+        fsIconCompress.classList.add('hidden');
+      }
+      setTimeout(() => {
+        resizeCanvases();
+        drawAll();
+      }, 100);
+    });
+
+    // ==========================================
+    // イベントバインディング
+    // ==========================================
+    thetaSlider.addEventListener('input', (e) => {
+      stopAnimation();
+      currentTheta = parseFloat(e.target.value);
+      updateState();
+    });
+
+    playPauseBtn.addEventListener('click', togglePlay);
+
+    modeCircleBtn.addEventListener('click', () => setMode('circle'));
+    modeGraphBtn.addEventListener('click', () => setMode('graph'));
+    modeBothBtn.addEventListener('click', () => setMode('both'));
+
+    axisThetaBtn.addEventListener('click', () => {
+      graphAxis = 'theta';
+      updateAxisUI();
+      drawGraph();
+    });
+
+    axisTBtn.addEventListener('click', () => {
+      graphAxis = 't';
+      updateAxisUI();
+      drawGraph();
+    });
+
+    document.querySelectorAll('.range-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentRangeKey = btn.dataset.limit;
+        updateProblemUI();
+      });
+    });
+
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      updateProblemUI();
+      resizeCanvases();
+      drawAll();
+    });
+
+  </script>
+</body>
+</html>
