@@ -123,6 +123,15 @@
       <div id="canvasViewport" class="flex-1 relative w-full h-full min-h-0 overflow-hidden flex gap-2">
         <!-- 単位円キャンバスコンテナ -->
         <div id="circleContainer" class="flex-1 relative w-full h-full min-h-0 bg-slate-900/60 rounded-xl border border-slate-800/80 shadow-xl overflow-hidden">
+          <!-- 単位円の角度切り替えフローティングピル -->
+          <div class="absolute top-2.5 right-2.5 z-10 flex items-center bg-slate-950/85 backdrop-blur border border-slate-800 rounded-lg p-0.5 text-xs shadow-lg">
+            <span class="text-[10px] text-slate-400 px-2 font-medium flex items-center gap-1">
+              <span>角度:</span>
+            </span>
+            <button class="circle-mode-btn px-2.5 py-1 rounded-md text-xs font-mono font-bold transition bg-sky-600 text-white shadow-sm" data-mode="theta" title="θの値を表示">θ</button>
+            <button class="circle-mode-btn px-2.5 py-1 rounded-md text-xs font-mono font-medium transition text-slate-400 hover:text-white" data-mode="t" title="tの値を表示">t</button>
+            <button class="circle-mode-btn px-2.5 py-1 rounded-md text-xs font-mono font-medium transition text-slate-400 hover:text-white" data-mode="both" title="θとtの両方を表示">両方</button>
+          </div>
           <canvas id="circleCanvas" class="w-full h-full block"></canvas>
         </div>
 
@@ -257,6 +266,28 @@
         </div>
         <div class="text-[10px] text-slate-400 px-1 pt-0.5" id="axisDescription">
           <!-- 動的更新 -->
+        </div>
+      </div>
+
+      <!-- セクション2.5: 単位円の角度表示選択 (θ vs t vs 両方) -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-slate-800">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 7v5l3 3"/></svg>
+          単位円の数値表示を選択
+        </div>
+        <div class="grid grid-cols-3 gap-1 bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/90">
+          <button class="circle-side-btn py-1.5 px-1 rounded text-xs font-mono font-bold transition text-center bg-sky-600 text-white shadow-sm" data-mode="theta">
+            θ で表示
+          </button>
+          <button class="circle-side-btn py-1.5 px-1 rounded text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900" data-mode="t">
+            t で表示
+          </button>
+          <button class="circle-side-btn py-1.5 px-1 rounded text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900" data-mode="both">
+            両方
+          </button>
+        </div>
+        <div class="text-[10px] text-slate-400 px-1 pt-0.5" id="circleAngleModeDescription">
+          単位円上の点に θ の値を表示中
         </div>
       </div>
 
@@ -1319,6 +1350,43 @@
     // 単位円キャンバス描画
     // ==========================================
     // ==========================================
+    // 単位円の角度表示モード (theta | t | both)
+    // ==========================================
+    let circleAngleMode = 'theta';
+
+    function setCircleAngleMode(mode) {
+      circleAngleMode = mode;
+
+      // フローティングボタンのスタイル更新
+      document.querySelectorAll('.circle-mode-btn').forEach(btn => {
+        if (btn.dataset.mode === mode) {
+          btn.className = 'circle-mode-btn px-2.5 py-1 rounded-md text-xs font-mono font-bold transition bg-sky-600 text-white shadow-sm';
+        } else {
+          btn.className = 'circle-mode-btn px-2.5 py-1 rounded-md text-xs font-mono font-medium transition text-slate-400 hover:text-white';
+        }
+      });
+
+      // サイドバーボタンのスタイル更新
+      document.querySelectorAll('.circle-side-btn').forEach(btn => {
+        if (btn.dataset.mode === mode) {
+          btn.className = 'circle-side-btn py-1.5 px-1 rounded text-xs font-mono font-bold transition text-center bg-sky-600 text-white shadow-sm';
+        } else {
+          btn.className = 'circle-side-btn py-1.5 px-1 rounded text-xs font-mono font-medium transition text-center text-slate-400 hover:text-white hover:bg-slate-900';
+        }
+      });
+
+      // 説明文の更新
+      const desc = document.getElementById('circleAngleModeDescription');
+      if (desc) {
+        if (mode === 'theta') desc.textContent = '単位円上の点に θ の値を表示中';
+        else if (mode === 't') desc.textContent = '単位円上の点に置換角 t の値を表示中';
+        else desc.textContent = '単位円上の点に θ と t の両方を併記中';
+      }
+
+      drawCircle();
+    }
+
+    // ==========================================
     // 単位円上の角度ラベル描画ヘルパー
     // ==========================================
     function drawCircleLabel(ctx, cx, cy, radius, angleRad, mainText, subText, color, isStart) {
@@ -1499,35 +1567,44 @@
       ctx.stroke();
 
       // ------------------------------------------
-      // θ = 0 の始点マークと角度ラベル
+      // θ = 0 (または t = α) の始点マークと角度ラベル
       // ------------------------------------------
       const normT0 = ((p.alpha % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-      const isCoincidingZero = (p.category === 'eq')
+      const isCoincidingZero = (p.category === "eq")
         ? cfg.activeSolutions.some(s => Math.abs(s.theta) < 1e-4)
         : cfg.activeBoundaries.some(b => Math.abs(b.theta) < 1e-4);
 
       if (!isCoincidingZero) {
-        const mainText = 'θ = 0';
-        const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + formatPiFrac(p.alpha)) : null;
-        drawCircleLabel(ctx, cx, cy, radius, normT0, mainText, subText, '#38bdf8', true);
+        let zeroMainText = "";
+        let zeroSubText = null;
+
+        if (circleAngleMode === "theta") {
+          zeroMainText = "θ = 0";
+        } else if (circleAngleMode === "t") {
+          zeroMainText = "t = " + formatPiFrac(p.alpha);
+        } else { // both
+          zeroMainText = "θ = 0";
+          zeroSubText = (p.k !== 1 || p.alpha !== 0) ? ("t = " + formatPiFrac(p.alpha)) : "(t = 0)";
+        }
+        drawCircleLabel(ctx, cx, cy, radius, normT0, zeroMainText, zeroSubText, "#38bdf8", true);
       }
 
       // ------------------------------------------
       // 不等式の場合：解の区間円弧・境界点と角度ラベル
       // ------------------------------------------
-      if (p.category === 'ineq') {
+      if (p.category === "ineq") {
         cfg.activeIntervals.forEach(inv => {
           ctx.save();
           ctx.beginPath();
           ctx.arc(cx, cy, radius, -inv.maxT, -inv.minT, false);
-          ctx.strokeStyle = '#10b981';
+          ctx.strokeStyle = "#10b981";
           ctx.lineWidth = 5;
           ctx.stroke();
           ctx.restore();
         });
 
         // 境界点マーク
-        const isSolid = (currentIneqSign === 'ge' || currentIneqSign === 'le');
+        const isSolid = (currentIneqSign === "ge" || currentIneqSign === "le");
         cfg.activeBoundaries.forEach(b => {
           const bx = cx + radius * Math.cos(b.t);
           const by = cy - radius * Math.sin(b.t);
@@ -1535,15 +1612,15 @@
           ctx.beginPath();
           ctx.arc(bx, by, 5.5, 0, 2 * Math.PI);
           if (isSolid) {
-            ctx.fillStyle = '#10b981';
+            ctx.fillStyle = "#10b981";
             ctx.fill();
-            ctx.strokeStyle = '#ffffff';
+            ctx.strokeStyle = "#ffffff";
             ctx.lineWidth = 1.5;
             ctx.stroke();
           } else {
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = "#ffffff";
             ctx.fill();
-            ctx.strokeStyle = '#10b981';
+            ctx.strokeStyle = "#10b981";
             ctx.lineWidth = 2.5;
             ctx.stroke();
           }
@@ -1563,17 +1640,27 @@
         });
 
         bndGroups.forEach(grp => {
-          const thLabels = grp.boundaries.map(b => b.labelTh).join(', ');
-          const mainText = 'θ = ' + thLabels;
-          const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + grp.boundaries[0].labelT) : null;
-          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, '#10b981', false);
+          const thLabels = grp.boundaries.map(b => b.labelTh).join(", ");
+          const tLabels = grp.boundaries.map(b => b.labelT).join(", ");
+          let mainText = "";
+          let subText = null;
+
+          if (circleAngleMode === "theta") {
+            mainText = "θ = " + thLabels;
+          } else if (circleAngleMode === "t") {
+            mainText = "t = " + tLabels;
+          } else { // both
+            mainText = "θ = " + thLabels;
+            subText = (p.k !== 1 || p.alpha !== 0) ? ("t = " + tLabels) : ("(t = " + thLabels + ")");
+          }
+          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, "#10b981", false);
         });
       }
 
       // ------------------------------------------
       // 方程式の場合：解の動径・交点マークと角度ラベル
       // ------------------------------------------
-      if (p.category === 'eq') {
+      if (p.category === "eq") {
         cfg.activeSolutions.forEach((sol, idx) => {
           const sx = cx + radius * Math.cos(sol.t);
           const sy = cy - radius * Math.sin(sol.t);
@@ -1583,15 +1670,15 @@
           ctx.setLineDash([3, 3]);
           ctx.moveTo(cx, cy);
           ctx.lineTo(sx, sy);
-          ctx.strokeStyle = '#f59e0b';
+          ctx.strokeStyle = "#f59e0b";
           ctx.lineWidth = 1.8;
           ctx.stroke();
 
           ctx.beginPath();
           ctx.arc(sx, sy, 5.5, 0, 2 * Math.PI);
-          ctx.fillStyle = '#f59e0b';
+          ctx.fillStyle = "#f59e0b";
           ctx.fill();
-          ctx.strokeStyle = '#ffffff';
+          ctx.strokeStyle = "#ffffff";
           ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.restore();
@@ -1610,10 +1697,20 @@
         });
 
         solGroups.forEach(grp => {
-          const thLabels = grp.solutions.map(s => s.labelTh).join(', ');
-          const mainText = 'θ = ' + thLabels;
-          const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + grp.solutions[0].labelT) : null;
-          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, '#fbbf24', false);
+          const thLabels = grp.solutions.map(s => s.labelTh).join(", ");
+          const tLabels = grp.solutions.map(s => s.labelT).join(", ");
+          let mainText = "";
+          let subText = null;
+
+          if (circleAngleMode === "theta") {
+            mainText = "θ = " + thLabels;
+          } else if (circleAngleMode === "t") {
+            mainText = "t = " + tLabels;
+          } else { // both
+            mainText = "θ = " + thLabels;
+            subText = (p.k !== 1 || p.alpha !== 0) ? ("t = " + tLabels) : ("(t = " + thLabels + ")");
+          }
+          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, "#f59e0b", false);
         });
       }
 
@@ -2164,6 +2261,13 @@
     modeCircleBtn.addEventListener('click', () => setMode('circle'));
     modeGraphBtn.addEventListener('click', () => setMode('graph'));
     modeBothBtn.addEventListener('click', () => setMode('both'));
+
+    // 単位円 角度表示切り替えイベント
+    document.querySelectorAll('.circle-mode-btn, .circle-side-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setCircleAngleMode(btn.dataset.mode);
+      });
+    });
 
     axisThetaBtn.addEventListener('click', () => {
       graphAxis = 'theta';
