@@ -1318,6 +1318,85 @@
     // ==========================================
     // 単位円キャンバス描画
     // ==========================================
+    // ==========================================
+    // 単位円上の角度ラベル描画ヘルパー
+    // ==========================================
+    function drawCircleLabel(ctx, cx, cy, radius, angleRad, mainText, subText, color, isStart) {
+      const normAngle = ((angleRad % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+      const cos = Math.cos(normAngle);
+      const sin = Math.sin(normAngle);
+
+      const px = cx + radius * cos;
+      const py = cy - radius * sin;
+
+      if (isStart) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([2, 2]);
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(px, py);
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = '#0284c7';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      const offset = isStart ? 20 : 22;
+      let lx = cx + (radius + offset) * cos;
+      let ly = cy - (radius + offset) * sin;
+
+      ctx.save();
+      ctx.font = 'bold 12px "JetBrains Mono", Inter, monospace';
+
+      if (cos > 0.35) {
+        ctx.textAlign = 'left';
+        lx += 4;
+      } else if (cos < -0.35) {
+        ctx.textAlign = 'right';
+        lx -= 4;
+      } else {
+        ctx.textAlign = 'center';
+      }
+
+      if (sin > 0.35) {
+        ctx.textBaseline = 'bottom';
+        ly -= 3;
+      } else if (sin < -0.35) {
+        ctx.textBaseline = 'top';
+        ly += 3;
+      } else {
+        ctx.textBaseline = 'middle';
+      }
+
+      // 背景文字ストローク（視認性向上）
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = '#020617';
+      ctx.strokeText(mainText, lx, ly);
+
+      ctx.fillStyle = color;
+      ctx.fillText(mainText, lx, ly);
+
+      if (subText) {
+        const subY = (sin > 0.35) ? ly - 14 : ly + 14;
+        ctx.font = '10px "JetBrains Mono", Inter, monospace';
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#020617';
+        ctx.strokeText(subText, lx, subY);
+        ctx.fillStyle = '#94a3b8';
+        ctx.fillText(subText, lx, subY);
+      }
+      ctx.restore();
+    }
+
     function drawCircle() {
       const rect = circleContainer.getBoundingClientRect();
       const w = rect.width;
@@ -1331,7 +1410,7 @@
       const cfg = getProblemRangeConfig(currentProbKey, currentRangeKey);
       const cx = w / 2;
       const cy = h / 2;
-      const radius = Math.min(w, h) * 0.39;
+      const radius = Math.min(w, h) * 0.36;
 
       // 座標軸
       ctx.lineWidth = 1.2;
@@ -1343,16 +1422,16 @@
       ctx.lineTo(cx, cy + radius * 1.34);
       ctx.stroke();
 
-      // 軸ラベル
+      // 軸ラベル（数値 1, -1 は円の内側に配置し、外周の角度ラベルと干渉しないように整理）
       ctx.fillStyle = '#94a3b8';
       ctx.font = '13px Inter';
-      ctx.fillText('x', cx + radius * 1.36, cy + 4);
-      ctx.fillText('y', cx - 14, cy - radius * 1.36);
+      ctx.fillText('x', cx + radius * 1.35, cy + 4);
+      ctx.fillText('y', cx - 14, cy - radius * 1.35);
       ctx.fillText('O', cx - 16, cy + 16);
-      ctx.fillText('1', cx + radius + 4, cy + 16);
-      ctx.fillText('-1', cx - radius - 20, cy + 16);
-      ctx.fillText('1', cx + 8, cy - radius - 4);
-      ctx.fillText('-1', cx + 8, cy + radius + 16);
+      ctx.fillText('1', cx + radius - 15, cy + 16);
+      ctx.fillText('-1', cx - radius + 4, cy + 16);
+      ctx.fillText('1', cx + 6, cy - radius + 14);
+      ctx.fillText('-1', cx + 6, cy + radius - 6);
 
       // 目標値ラインの位置
       const lineY = cy - p.target * radius;
@@ -1419,7 +1498,23 @@
       ctx.lineWidth = 2.2;
       ctx.stroke();
 
-      // 不等式の場合：円周上の解の区間円弧をエメラルド色で強調
+      // ------------------------------------------
+      // θ = 0 の始点マークと角度ラベル
+      // ------------------------------------------
+      const normT0 = ((p.alpha % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+      const isCoincidingZero = (p.category === 'eq')
+        ? cfg.activeSolutions.some(s => Math.abs(s.theta) < 1e-4)
+        : cfg.activeBoundaries.some(b => Math.abs(b.theta) < 1e-4);
+
+      if (!isCoincidingZero) {
+        const mainText = 'θ = 0';
+        const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + formatPiFrac(p.alpha)) : null;
+        drawCircleLabel(ctx, cx, cy, radius, normT0, mainText, subText, '#38bdf8', true);
+      }
+
+      // ------------------------------------------
+      // 不等式の場合：解の区間円弧・境界点と角度ラベル
+      // ------------------------------------------
       if (p.category === 'ineq') {
         cfg.activeIntervals.forEach(inv => {
           ctx.save();
@@ -1438,10 +1533,13 @@
           const by = cy - radius * Math.sin(b.t);
           ctx.save();
           ctx.beginPath();
-          ctx.arc(bx, by, 5, 0, 2 * Math.PI);
+          ctx.arc(bx, by, 5.5, 0, 2 * Math.PI);
           if (isSolid) {
             ctx.fillStyle = '#10b981';
             ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
           } else {
             ctx.fillStyle = '#ffffff';
             ctx.fill();
@@ -1451,9 +1549,30 @@
           }
           ctx.restore();
         });
+
+        // 境界点の角度ラベル（重複角度をグループ化）
+        const bndGroups = [];
+        cfg.activeBoundaries.forEach(b => {
+          const normT = ((b.t % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+          let grp = bndGroups.find(g => Math.abs(g.normT - normT) < 0.06);
+          if (!grp) {
+            grp = { normT, t: b.t, boundaries: [] };
+            bndGroups.push(grp);
+          }
+          grp.boundaries.push(b);
+        });
+
+        bndGroups.forEach(grp => {
+          const thLabels = grp.boundaries.map(b => b.labelTh).join(', ');
+          const mainText = 'θ = ' + thLabels;
+          const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + grp.boundaries[0].labelT) : null;
+          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, '#10b981', false);
+        });
       }
 
-      // 方程式の場合：解の動径と交点マーク
+      // ------------------------------------------
+      // 方程式の場合：解の動径・交点マークと角度ラベル
+      // ------------------------------------------
       if (p.category === 'eq') {
         cfg.activeSolutions.forEach((sol, idx) => {
           const sx = cx + radius * Math.cos(sol.t);
@@ -1465,7 +1584,7 @@
           ctx.moveTo(cx, cy);
           ctx.lineTo(sx, sy);
           ctx.strokeStyle = '#f59e0b';
-          ctx.lineWidth = 1.6;
+          ctx.lineWidth = 1.8;
           ctx.stroke();
 
           ctx.beginPath();
@@ -1476,6 +1595,25 @@
           ctx.lineWidth = 1.5;
           ctx.stroke();
           ctx.restore();
+        });
+
+        // 解の角度ラベル（重複角度をグループ化）
+        const solGroups = [];
+        cfg.activeSolutions.forEach(sol => {
+          const normT = ((sol.t % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+          let grp = solGroups.find(g => Math.abs(g.normT - normT) < 0.06);
+          if (!grp) {
+            grp = { normT, t: sol.t, solutions: [] };
+            solGroups.push(grp);
+          }
+          grp.solutions.push(sol);
+        });
+
+        solGroups.forEach(grp => {
+          const thLabels = grp.solutions.map(s => s.labelTh).join(', ');
+          const mainText = 'θ = ' + thLabels;
+          const subText = (p.k !== 1 || p.alpha !== 0) ? ('t = ' + grp.solutions[0].labelT) : null;
+          drawCircleLabel(ctx, cx, cy, radius, grp.normT, mainText, subText, '#fbbf24', false);
         });
       }
 
