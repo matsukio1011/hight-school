@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>三角関数(cos,sin,tan)主要角マスター 0°〜360°</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Prevent text selection and zoom touch gestures on mobile */
+    body {
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+      background-color: #0b0f17;
+      color: #f1f5f9;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+
+    /* Range slider custom styling */
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #06b6d4;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+    }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col font-sans text-slate-100 bg-slate-950">
+
+  <!-- Top Navigation Header -->
+  <header class="h-12 bg-slate-900/90 border-b border-slate-800/80 px-3 flex items-center justify-between shrink-0 z-20 backdrop-blur">
+    <!-- Title / Brand & App Switcher -->
+    <div class="flex items-center space-x-2">
+      <a href="index.html" class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md hover:scale-105 transition-transform" title="ポータルサイトへ">
+        <i class="fa-solid font-bold text-xs">sin</i>
+      </a>
+      <h1 class="text-xs sm:text-sm font-bold tracking-tight text-cyan-400 hidden xl:inline-block">主要角マスター</h1>
+
+      <!-- 小画面用ポータルリンク -->
+      <a href="index.html" class="lg:hidden flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs border border-slate-700 transition" title="ポータルサイトへ戻る">
+        <span>🏠 ポータル</span>
+      </a>
+
+      <!-- アプリ切り替えタブ (App Switcher) -->
+      <div class="hidden lg:flex items-center bg-slate-950/90 p-1 rounded-xl border border-slate-800 shadow-inner text-[11px] gap-1">
+        <a href="index.html" class="flex items-center gap-1 px-2 py-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition font-medium" title="ポータルサイトへ戻る">
+          <span>🏠 ポータル</span>
+        </a>
+        <a href="equations.html" class="flex items-center gap-1 px-2 py-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition font-medium" title="三角方程式・三角不等式 徹底理解へ">
+          <span>📐 方程式・不等式 (18問)</span>
+        </a>
+        <a href="graph.html" class="flex items-center gap-1 px-2 py-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition font-medium" title="三角関数グラフ描き方マスターへ">
+          <span>📈 グラフ描き方 (26問)</span>
+        </a>
+        <a href="cos_sin_tan.html" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-semibold shadow-sm cursor-default">
+          <span>🎯 主要角マスター</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mode Select Tabs -->
+    <div class="flex items-center space-x-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+      <button id="tab-test" onclick="switchMode('test')" class="px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 bg-cyan-500 text-slate-950 shadow">
+        <i class="fa-solid fa-graduation-cap mr-1"></i>テスト
+      </button>
+      <button id="tab-mastery" onclick="switchMode('mastery')" class="px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 text-slate-400 hover:text-slate-200">
+        <i class="fa-solid fa-fire mr-1"></i>全角攻略
+      </button>
+      <button id="tab-tap" onclick="switchMode('tap')" class="px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 text-slate-400 hover:text-slate-200">
+        <i class="fa-solid fa-hand-pointer mr-1"></i>円タップ
+      </button>
+      <button id="tab-explore" onclick="switchMode('explore')" class="px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 text-slate-400 hover:text-slate-200">
+        <i class="fa-solid fa-compass mr-1"></i>探求
+      </button>
+    </div>
+
+    <!-- Controls (Range, Unit, Circle, Sound) -->
+    <div class="flex items-center space-x-1.5">
+      <!-- Angle Range Toggle -->
+      <button onclick="toggleAngleRange()" id="toggle-range-btn" class="px-2 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700/60 font-medium transition-colors">
+        <span id="toggle-range-label">範囲: 0°〜360°</span>
+      </button>
+
+      <!-- Angle Unit Toggle (Deg / Rad) -->
+      <button onclick="toggleUnit()" id="toggle-unit-btn" class="px-2 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700/60 font-medium transition-colors">
+        <span id="toggle-unit-label">単位: 度(°)</span>
+      </button>
+
+      <!-- Unit Circle Toggle -->
+      <button onclick="toggleCircleVisibility()" id="toggle-circle-btn" class="px-2 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700/60 font-medium transition-colors">
+        <i class="fa-regular fa-circle-dot mr-1"></i><span id="toggle-circle-label">単位円: 表示</span>
+      </button>
+
+      <!-- Sound FX Toggle -->
+      <button onclick="toggleSound()" id="sound-btn" title="効果音切替" class="w-7 h-7 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700/60 transition-colors">
+        <i class="fa-solid fa-volume-high text-xs" id="sound-icon"></i>
+      </button>
+
+      <!-- Fullscreen Toggle -->
+      <button onclick="toggleFullscreen()" id="fullscreen-btn" title="全画面表示" class="w-7 h-7 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700/60 transition-colors">
+        <i class="fa-solid fa-expand text-xs" id="fullscreen-icon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace Container -->
+  <main class="flex-1 relative flex flex-col md:flex-row overflow-hidden p-2 gap-2">
+
+    <!-- Portrait Mode Warning Banner (Visible only on portrait aspect ratios) -->
+    <div id="portrait-warning" class="hidden absolute inset-0 z-50 bg-slate-950/95 backdrop-blur flex-col items-center justify-center p-6 text-center">
+      <div class="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4 text-cyan-400 animate-bounce">
+        <i class="fa-solid fa-rotate text-2xl"></i>
+      </div>
+      <h2 class="text-lg font-bold text-white mb-2">スマホ横画面でご利用ください</h2>
+      <p class="text-xs text-slate-400 max-w-xs">このアプリは単位円と三角比の問題を最適に表示するため、横画面（Landscape）での使用を推奨しています。</p>
+    </div>
+
+    <!-- Left Column: Canvas Area (Interactive Unit Circle) -->
+    <section class="flex-1 relative bg-slate-900/60 rounded-2xl border border-slate-800/80 flex flex-col items-center justify-center p-2 overflow-hidden shadow-inner min-h-[220px]">
+      
+      <!-- Canvas Element -->
+      <canvas id="unit-circle-canvas" class="w-full h-full cursor-pointer touch-none"></canvas>
+
+      <!-- Canvas Legend Overlay -->
+      <div class="absolute bottom-2 left-3 flex items-center space-x-3 text-[11px] font-medium bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800/80 backdrop-blur pointer-events-none">
+        <div class="flex items-center space-x-1">
+          <span class="w-2.5 h-1 bg-red-500 rounded-full inline-block"></span>
+          <span class="text-red-400">cosθ(x)</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <span class="w-2.5 h-1 bg-emerald-500 rounded-full inline-block"></span>
+          <span class="text-emerald-400">sinθ(y)</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <span class="w-2.5 h-1 bg-amber-500 rounded-full inline-block"></span>
+          <span class="text-amber-400">tanθ(傾き)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Interactive Quiz & Study Panel -->
+    <section class="w-full md:w-[380px] lg:w-[420px] bg-slate-900/80 rounded-2xl border border-slate-800/80 flex flex-col p-3 overflow-y-auto shrink-0 shadow-xl">
+      
+      <!-- Question Card Area -->
+      <div id="question-card" class="bg-slate-950/90 rounded-xl p-3 border border-slate-800/80 shadow-md mb-2 flex flex-col items-center justify-center relative">
+        <div id="question-func-badge" class="absolute top-2 left-3 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+          Target Ratio
+        </div>
+
+        <!-- Target Function & Angle Display -->
+        <div class="flex items-center justify-center space-x-2 my-1 min-h-[44px]">
+          <span id="question-func-name" class="text-3xl font-extrabold text-cyan-400 font-mono">cos</span>
+          <span id="question-bracket-left" class="text-xl font-bold text-slate-400">(</span>
+          <!-- Main Angle Display -->
+          <span id="question-angle-deg" class="text-3xl font-extrabold text-amber-300 font-mono inline-flex items-center">60°</span>
+          <span id="question-bracket-right" class="text-xl font-bold text-slate-400">) = ?</span>
+        </div>
+
+        <!-- Progress / Score Info in Quiz Mode -->
+        <div id="quiz-stats-bar" class="w-full flex items-center justify-between text-xs text-slate-400 pt-2 mt-1 border-t border-slate-800/60">
+          <div>正解率: <span id="stat-accuracy" class="font-mono font-bold text-emerald-400">100%</span> (<span id="stat-correct">0</span>/<span id="stat-total">0</span>)</div>
+          <div>連続正解: <span id="stat-streak" class="font-mono font-bold text-amber-400">0</span> 🔥</div>
+        </div>
+      </div>
+
+      <!-- Quiz / Test Mode Answer Keypad -->
+      <div id="quiz-control-panel" class="flex-1 flex flex-col justify-between space-y-2">
+        <div class="text-xs font-bold text-slate-400 flex items-center justify-between px-1">
+          <span>値を選択してください:</span>
+          <span class="text-[10px] text-slate-500">正確な値を選択</span>
+        </div>
+
+        <!-- 14 Standard Answer Choice Buttons -->
+        <div id="choices-grid" class="grid grid-cols-4 gap-1.5">
+          <!-- Dynamically populated choices -->
+        </div>
+
+        <!-- Feedback & Next Button Area -->
+        <div id="feedback-area" class="min-h-[44px] rounded-xl bg-slate-950/70 border border-slate-800 p-2 flex items-center justify-between">
+          <div id="feedback-message" class="text-xs font-semibold text-slate-400 flex items-center space-x-1.5">
+            <i class="fa-solid fa-circle-info text-cyan-400"></i>
+            <span>選択肢を選んで解答してください</span>
+          </div>
+          <button id="next-btn" onclick="nextQuestion()" class="hidden px-3 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs rounded-lg shadow-md transition-all duration-150 flex items-center space-x-1">
+            <span>次へ</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Circle Tap Practice Mode Panel (Hidden by default) -->
+      <div id="tap-control-panel" class="hidden flex-1 flex flex-col justify-between space-y-2">
+        <!-- Values Display Cards (3 Rows Layout) -->
+        <div class="flex flex-col space-y-2 my-auto py-1">
+          <!-- cos Row -->
+          <div class="bg-gradient-to-r from-red-950/80 to-red-950/30 border border-red-500/50 rounded-xl px-4 py-2.5 shadow-lg flex items-center justify-between">
+            <div class="text-sm font-extrabold text-red-400 tracking-wider shrink-0 flex items-center">
+              <span>cos</span>
+            </div>
+            <div id="tap-val-cos" class="text-lg sm:text-xl font-extrabold text-red-100 font-mono flex items-center justify-end leading-none">
+              <!-- cos 60° = 1/2 -->
+            </div>
+          </div>
+
+          <!-- sin Row -->
+          <div class="bg-gradient-to-r from-emerald-950/80 to-emerald-950/30 border border-emerald-500/50 rounded-xl px-4 py-2.5 shadow-lg flex items-center justify-between">
+            <div class="text-sm font-extrabold text-emerald-400 tracking-wider shrink-0 flex items-center">
+              <span>sin</span>
+            </div>
+            <div id="tap-val-sin" class="text-lg sm:text-xl font-extrabold text-emerald-100 font-mono flex items-center justify-end leading-none">
+              <!-- sin 60° = √3/2 -->
+            </div>
+          </div>
+
+          <!-- tan Row -->
+          <div class="bg-gradient-to-r from-amber-950/80 to-amber-950/30 border border-amber-500/50 rounded-xl px-4 py-2.5 shadow-lg flex items-center justify-between">
+            <div class="text-sm font-extrabold text-amber-400 tracking-wider shrink-0 flex items-center">
+              <span>tan</span>
+            </div>
+            <div id="tap-val-tan" class="text-lg sm:text-xl font-extrabold text-amber-100 font-mono flex items-center justify-end leading-none">
+              <!-- tan 60° = √3 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Brief Mathematical Explanation -->
+        <div id="tap-explanation" class="text-[11px] text-slate-300 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 leading-relaxed min-h-[40px]">
+          【第1象限】 x, yともに正(+)。cos, sin, tanのすべてがプラスです。
+        </div>
+
+        <!-- Angle Quick-Select Chips -->
+        <div>
+          <div class="text-[10px] font-bold text-slate-400 mb-1">主要角タップ選択:</div>
+          <div id="tap-angle-chips" class="flex flex-wrap gap-1 max-h-[85px] overflow-y-auto pr-1">
+            <!-- Dynamically rendered angle chips -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore Mode Panel (Hidden by default) -->
+      <div id="explore-control-panel" class="hidden flex-1 flex flex-col justify-between space-y-2">
+        <!-- Angle Slider Card (-1080 to 1080) -->
+        <div class="bg-slate-950/80 rounded-xl p-3 border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-xs font-semibold text-slate-300">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-sliders text-cyan-400"></i> 角度スライダー (-1080°〜1080°):</span>
+            <span id="exp-rotation-badge" class="text-xs font-mono font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">+0回転 (60°)</span>
+          </div>
+
+          <!-- Major angles slider snap implementation -->
+          <input type="range" id="angle-slider" min="-1080" max="1080" value="60" step="1" oninput="onExploreSliderInput(this.value)" onchange="onExploreSliderChange(this.value)" class="w-full accent-cyan-500 cursor-pointer h-2 bg-slate-800 rounded-lg">
+
+          <!-- Quick Step Control Buttons -->
+        <div class="flex items-center justify-between gap-1 pt-1 text-[10px] font-mono">
+          <div class="flex items-center space-x-1">
+            <button onclick="changeExploreAngle(-360)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">-360°</button>
+            <button onclick="changeExploreAngle(-45)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">-45°</button>
+            <button onclick="changeExploreAngle(-15)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">-15°</button>
+          </div>
+          <button onclick="setExploreAngle(0)" class="px-2 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 rounded text-cyan-300 font-bold transition-colors">0°にリセット</button>
+          <div class="flex items-center space-x-1">
+            <button onclick="changeExploreAngle(15)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">+15°</button>
+            <button onclick="changeExploreAngle(45)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">+45°</button>
+            <button onclick="changeExploreAngle(360)" class="px-1.5 py-1 bg-slate-800 hover:bg-slate-700 active:bg-cyan-900 border border-slate-700 rounded text-slate-300 font-bold transition-colors">+360°</button>
+          </div>
+        </div>
+
+        <!-- Keyboard Guide -->
+        <div class="text-[10px] text-slate-400 text-center pt-1 border-t border-slate-800/60 flex items-center justify-center space-x-1">
+          <i class="fa-solid fa-keyboard text-cyan-400"></i>
+          <span>キーボード操作: <kbd class="px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300">←</kbd> <kbd class="px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300">→</kbd> 矢印キーで主要角移動</span>
+        </div>
+      </div>
+
+      <!-- Values Display Cards -->
+        <div class="grid grid-cols-3 gap-1.5 text-center">
+          <div class="bg-red-950/30 border border-red-800/50 rounded-xl p-2">
+            <div class="text-[10px] text-red-400 font-bold uppercase">cosθ</div>
+            <div id="exp-val-cos" class="text-sm font-extrabold text-red-200 font-mono mt-0.5 inline-flex items-center justify-center min-h-[32px]">1/2</div>
+          </div>
+          <div class="bg-emerald-950/30 border border-emerald-800/50 rounded-xl p-2">
+            <div class="text-[10px] text-emerald-400 font-bold uppercase">sinθ</div>
+            <div id="exp-val-sin" class="text-sm font-extrabold text-emerald-200 font-mono mt-0.5 inline-flex items-center justify-center min-h-[32px]">√3/2</div>
+          </div>
+          <div class="bg-amber-950/30 border border-amber-800/50 rounded-xl p-2">
+            <div class="text-[10px] text-amber-400 font-bold uppercase">tanθ</div>
+            <div id="exp-val-tan" class="text-sm font-extrabold text-amber-200 font-mono mt-0.5 inline-flex items-center justify-center min-h-[32px]">√3</div>
+          </div>
+        </div>
+
+        <div id="exp-explanation" class="text-xs text-slate-300 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 leading-relaxed min-h-[46px]">
+          単位円上の点 P(cosθ, sinθ) の座標と、動径の傾き tanθ の関係を確認できます。
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    // Master State Object
+    const state = {
+      mode: 'test',           // 'test', 'mastery', 'tap', 'explore'
+      maxDegree: 360,         // 360 or 180
+      angleUnit: 'deg',       // 'deg' or 'rad'
+      showCircle: true,
+      soundEnabled: true,
+      currentAngleIndex: 3,   // Default 60 deg
+      currentFunc: 'cos',
+      correctAnswer: '',
+      answered: false,
+      statsCorrect: 0,
+      statsTotal: 0,
+      statsStreak: 0,
+      exploreAngle: 60,       // Angle in explore mode (-1080 to 1080)
+      lastTap: null,
+      autoNextTimeout: null   // タイマー保持用
+    };
+
+    // Major Angles Master Data Array (0° to 360°)
+    const ANGLES_DATA = [
+      { deg: 0,   radStr: "0",     radVal: 0,            cos: "1",      sin: "0",      tan: "0" },
+      { deg: 30,  radStr: "π/6",   radVal: Math.PI/6,    cos: "√3/2",   sin: "1/2",    tan: "1/√3" },
+      { deg: 45,  radStr: "π/4",   radVal: Math.PI/4,    cos: "1/√2",   sin: "1/√2",   tan: "1" },
+      { deg: 60,  radStr: "π/3",   radVal: Math.PI/3,    cos: "1/2",    sin: "√3/2",   tan: "√3" },
+      { deg: 90,  radStr: "π/2",   radVal: Math.PI/2,    cos: "0",      sin: "1",      tan: "なし" },
+      { deg: 120, radStr: "2π/3",  radVal: 2*Math.PI/3,  cos: "-1/2",   sin: "√3/2",   tan: "-√3" },
+      { deg: 135, radStr: "3π/4",  radVal: 3*Math.PI/4,  cos: "-1/√2",  sin: "1/√2",   tan: "-1" },
+      { deg: 150, radStr: "5π/6",  radVal: 5*Math.PI/6,  cos: "-√3/2",  sin: "1/2",    tan: "-1/√3" },
+      { deg: 180, radStr: "π",     radVal: Math.PI,      cos: "-1",     sin: "0",      tan: "0" },
+      { deg: 210, radStr: "7π/6",  radVal: 7*Math.PI/6,  cos: "-√3/2",  sin: "-1/2",   tan: "1/√3" },
+      { deg: 225, radStr: "5π/4",  radVal: 5*Math.PI/4,  cos: "-1/√2",  sin: "-1/√2",  tan: "1" },
+      { deg: 240, radStr: "4π/3",  radVal: 4*Math.PI/3,  cos: "-1/2",   sin: "-√3/2",  tan: "√3" },
+      { deg: 270, radStr: "3π/2",  radVal: 3*Math.PI/2,  cos: "0",      sin: "-1",     tan: "なし" },
+      { deg: 300, radStr: "5π/3",  radVal: 5*Math.PI/3,  cos: "1/2",    sin: "-√3/2",  tan: "-√3" },
+      { deg: 315, radStr: "7π/4",  radVal: 7*Math.PI/4,  cos: "1/√2",   sin: "-1/√2",  tan: "-1" },
+      { deg: 330, radStr: "11π/6", radVal: 11*Math.PI/6, cos: "√3/2",   sin: "-1/2",   tan: "-1/√3" },
+      { deg: 360, radStr: "2π",    radVal: 2*Math.PI,    cos: "1",      sin: "0",      tan: "0" }
+    ];
+
+    // Standard Answer Keypad Choices
+    const CHOICES_LIST = [
+      "1", "0", "-1", "1/2", "-1/2", "√3/2", "-√3/2", "1/√2", "-1/√2", "√3", "-√3", "1/√3", "-1/√3", "なし"
+    ];
+
+    let canvas = null;
+    let ctx = null;
+
+    // Web Audio API Sound Synthesizer
+    function playSFX(type) {
+      if (!state.soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const audioCtx = new AudioCtx();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'correct') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now);      // C5
+          osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+          osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);        // A3
+          osc.frequency.setValueAtTime(196, now + 0.12);   // G3
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        } else if (type === 'tap') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch(e) {}
+    }
+
+    // Format mathematical values to vertical HTML fractions
+    function formatMathHTML(val) {
+      if (!val) return '';
+      if (val === "なし") return '<span class="text-xs font-semibold">なし</span>';
+
+      const isNeg = val.startsWith('-');
+      const cleanVal = isNeg ? val.slice(1) : val;
+
+      if (cleanVal.includes('/')) {
+        const parts = cleanVal.split('/');
+        const num = parts[0];
+        const den = parts[1];
+        return `${isNeg ? '<span class="mr-0.5">-</span>' : ''}<span class="inline-flex flex-col items-center justify-center align-middle mx-0.5 text-center leading-none"><span class="border-b border-current pb-0.5 px-0.5">${num}</span><span class="pt-0.5 px-0.5">${den}</span></span>`;
+      }
+      return val;
+    }
+
+    // Format Radian string to vertical HTML fraction (without 'rad' unit)
+    function formatRadianHTML(radStr) {
+      if (!radStr) return '';
+      if (!radStr.includes('/')) return radStr;
+
+      const parts = radStr.split('/');
+      return `<span class="inline-flex flex-col items-center justify-center align-middle mx-0.5 text-center leading-none"><span class="border-b border-current pb-0.5 px-0.5">${parts[0]}</span><span class="pt-0.5 px-0.5">${parts[1]}</span></span>`;
+    }
+
+    // Convert degree integer to reduced Radian fraction string (e.g., -1080 => "-6π", 1050 => "35π/6")
+    function getDegreeToRadianStr(deg) {
+      if (deg === 0) return "0";
+      const gcdVal = (a, b) => b === 0 ? a : gcdVal(b, a % b);
+      const g = gcdVal(Math.abs(deg), 180);
+      const num = Math.abs(deg) / g;
+      const den = 180 / g;
+      const sign = deg < 0 ? "-" : "";
+
+      const numStr = num === 1 ? "π" : `${num}π`;
+      if (den === 1) return `${sign}${numStr}`;
+      return `${sign}${numStr}/${den}`;
+    }
+
+    // Helper to get active angles based on selected degree range
+    function getActiveAngles() {
+      return ANGLES_DATA.filter(a => a.deg <= state.maxDegree);
+    }
+
+    // Switch active practice mode
+    function switchMode(mode) {
+      playSFX('tap');
+      state.mode = mode;
+
+      const tabs = ['test', 'mastery', 'tap', 'explore'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (btn) {
+          if (t === mode) {
+            btn.className = "px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 bg-cyan-500 text-slate-950 shadow";
+          } else {
+            btn.className = "px-2.5 py-1 text-xs font-semibold rounded-lg transition-all duration-150 text-slate-400 hover:text-slate-200";
+          }
+        }
+      });
+
+      // Show/Hide Panels
+      document.getElementById('quiz-control-panel').classList.toggle('hidden', mode === 'tap' || mode === 'explore');
+      document.getElementById('tap-control-panel').classList.toggle('hidden', mode !== 'tap');
+      document.getElementById('explore-control-panel').classList.toggle('hidden', mode !== 'explore');
+
+      if (canvas) {
+        if (mode === 'test' || mode === 'mastery') {
+          canvas.classList.remove('cursor-pointer');
+          canvas.classList.add('cursor-default');
+        } else {
+          canvas.classList.remove('cursor-default');
+          canvas.classList.add('cursor-pointer');
+        }
+      }
+
+      if (mode === 'test' || mode === 'mastery') {
+        generateQuestion();
+      } else if (mode === 'tap') {
+        updateTapView();
+      } else if (mode === 'explore') {
+        updateExploreView();
+      }
+      drawCircle();
+    }
+
+    // Toggle degree range (0° - 360° vs 0° - 180°)
+    function toggleAngleRange() {
+      playSFX('tap');
+      state.maxDegree = state.maxDegree === 360 ? 180 : 360;
+      document.getElementById('toggle-range-label').innerText = `範囲: 0°〜${state.maxDegree}°`;
+
+      const activeAngles = getActiveAngles();
+      if (state.currentAngleIndex >= activeAngles.length) {
+        state.currentAngleIndex = 0;
+      }
+
+      if (state.mode === 'test' || state.mode === 'mastery') {
+        generateQuestion();
+      } else if (state.mode === 'tap') {
+        updateTapView();
+      } else if (state.mode === 'explore') {
+        updateExploreView();
+      }
+      drawCircle();
+    }
+
+    // Toggle angle unit (Degree vs Radian)
+    function toggleUnit() {
+      playSFX('tap');
+      state.angleUnit = state.angleUnit === 'deg' ? 'rad' : 'deg';
+      document.getElementById('toggle-unit-label').innerText = state.angleUnit === 'deg' ? '単位: 度(°)' : '単位: ラジアン';
+
+      if (state.mode === 'tap') {
+        updateTapView();
+      } else if (state.mode === 'explore') {
+        updateExploreView();
+      } else {
+        updateQuestionCard();
+      }
+      drawCircle();
+    }
+
+    // Toggle unit circle visibility
+    function toggleCircleVisibility() {
+      playSFX('tap');
+      state.showCircle = !state.showCircle;
+      document.getElementById('toggle-circle-label').innerText = `単位円: ${state.showCircle ? '表示' : '非表示'}`;
+      drawCircle();
+    }
+
+    // Toggle SFX audio
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      const icon = document.getElementById('sound-icon');
+      if (icon) {
+        icon.className = state.soundEnabled ? 'fa-solid fa-volume-high text-xs' : 'fa-solid fa-volume-xmark text-xs text-slate-500';
+      }
+    }
+
+    // Toggle Fullscreen mode
+    function toggleFullscreen() {
+      playSFX('tap');
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(err => console.warn(err));
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        } else if (docEl.mozRequestFullScreen) {
+          docEl.mozRequestFullScreen();
+        } else if (docEl.msRequestFullscreen) {
+          docEl.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(err => console.warn(err));
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+
+    function updateFullscreenIcon() {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      const icon = document.getElementById('fullscreen-icon');
+      const btn = document.getElementById('fullscreen-btn');
+      if (icon) {
+        icon.className = isFs ? 'fa-solid fa-compress text-xs' : 'fa-solid fa-expand text-xs';
+      }
+      if (btn) {
+        btn.setAttribute('title', isFs ? '全画面を解除' : '全画面表示');
+      }
+    }
+
+    function updateQuestionCard() {
+      const badgeElem = document.getElementById('question-func-badge');
+      const funcElem = document.getElementById('question-func-name');
+      const bracketLeft = document.getElementById('question-bracket-left');
+      const bracketRight = document.getElementById('question-bracket-right');
+      const mainElem = document.getElementById('question-angle-deg');
+      const statsBar = document.getElementById('quiz-stats-bar');
+
+      if (state.mode === 'test' || state.mode === 'mastery') {
+        if (badgeElem) badgeElem.innerText = state.mode === 'test' ? 'TARGET RATIO' : '全角攻略';
+        if (funcElem) funcElem.innerText = state.currentFunc;
+        if (bracketLeft) bracketLeft.classList.remove('hidden');
+        if (bracketRight) bracketRight.classList.remove('hidden');
+        if (statsBar) statsBar.classList.remove('hidden');
+
+        const angleObj = ANGLES_DATA[state.currentAngleIndex];
+        if (state.angleUnit === 'deg') {
+          mainElem.innerHTML = `${angleObj.deg}°`;
+        } else {
+          mainElem.innerHTML = formatRadianHTML(angleObj.radStr);
+        }
+      } else if (state.mode === 'tap') {
+        if (badgeElem) badgeElem.innerText = '円タップ練習';
+        if (funcElem) funcElem.innerText = 'θ =';
+        if (bracketLeft) bracketLeft.classList.add('hidden');
+        if (bracketRight) bracketRight.classList.add('hidden');
+        if (statsBar) statsBar.classList.add('hidden');
+
+        const angleObj = ANGLES_DATA[state.currentAngleIndex];
+        if (state.angleUnit === 'deg') {
+          mainElem.innerHTML = `${angleObj.deg}°`;
+        } else {
+          mainElem.innerHTML = formatRadianHTML(angleObj.radStr);
+        }
+      } else if (state.mode === 'explore') {
+        if (badgeElem) badgeElem.innerText = '角度探求 (-1080°〜1080°)';
+        if (funcElem) funcElem.innerText = 'θ =';
+        if (bracketLeft) bracketLeft.classList.add('hidden');
+        if (bracketRight) bracketRight.classList.add('hidden');
+        if (statsBar) statsBar.classList.add('hidden');
+
+        if (state.angleUnit === 'deg') {
+          mainElem.innerHTML = `${state.exploreAngle}°`;
+        } else {
+          const radStr = getDegreeToRadianStr(state.exploreAngle);
+          mainElem.innerHTML = formatRadianHTML(radStr);
+        }
+      }
+    }
+
+    function generateQuestion() {
+      if (state.autoNextTimeout) {
+        clearTimeout(state.autoNextTimeout);
+        state.autoNextTimeout = null;
+      }
+      state.answered = false;
+      const activeAngles = getActiveAngles();
+
+      if (state.mode === 'mastery') {
+        state.currentAngleIndex = (state.currentAngleIndex + 1) % activeAngles.length;
+        const actualIdx = ANGLES_DATA.findIndex(a => a.deg === activeAngles[state.currentAngleIndex].deg);
+        state.currentAngleIndex = actualIdx >= 0 ? actualIdx : 0;
+      } else {
+        const randIdx = Math.floor(Math.random() * activeAngles.length);
+        const actualIdx = ANGLES_DATA.findIndex(a => a.deg === activeAngles[randIdx].deg);
+        state.currentAngleIndex = actualIdx >= 0 ? actualIdx : 0;
+      }
+
+      const funcs = ['cos', 'sin', 'tan'];
+      state.currentFunc = funcs[Math.floor(Math.random() * funcs.length)];
+
+      const angleObj = ANGLES_DATA[state.currentAngleIndex];
+      state.correctAnswer = angleObj[state.currentFunc];
+
+      updateQuestionCard();
+
+      const feedbackElem = document.getElementById('feedback-message');
+      feedbackElem.className = 'text-xs font-semibold text-slate-400 flex items-center space-x-1.5';
+      feedbackElem.innerHTML = `<i class="fa-solid fa-circle-info text-cyan-400"></i><span>選択肢を選んで解答してください</span>`;
+
+      document.getElementById('next-btn').classList.add('hidden');
+
+      renderChoices();
+      drawCircle();
+    }
+
+    function renderChoices() {
+      const grid = document.getElementById('choices-grid');
+      grid.innerHTML = CHOICES_LIST.map(val => {
+        const formattedHtml = formatMathHTML(val);
+        return `<button onclick="checkAnswer('${val}')" class="h-10 bg-slate-900 hover:bg-slate-800 active:bg-cyan-950 border border-slate-700/80 hover:border-cyan-500/50 rounded-xl font-mono text-sm font-bold text-slate-200 transition-all flex items-center justify-center shadow-sm">
+          ${formattedHtml}
+        </button>`;
+      }).join('');
+    }
+
+    function checkAnswer(userVal) {
+      if (state.answered) return;
+      state.answered = true;
+
+      state.statsTotal++;
+      const isCorrect = (userVal === state.correctAnswer);
+      const feedbackElem = document.getElementById('feedback-message');
+
+      if (isCorrect) {
+        playSFX('correct');
+        state.statsCorrect++;
+        state.statsStreak++;
+
+        const correctFormatted = formatMathHTML(state.correctAnswer);
+        feedbackElem.className = 'text-xs font-bold text-emerald-400 flex items-center space-x-1.5';
+        feedbackElem.innerHTML = `<i class="fa-solid fa-circle-check text-sm"></i><span>正解！ ${state.currentFunc} = ${correctFormatted}</span>`;
+
+        // 正解時はボタンを出さず、0.7秒後に自動で次の問題へ進む
+        document.getElementById('next-btn').classList.add('hidden');
+        if (state.autoNextTimeout) clearTimeout(state.autoNextTimeout);
+        state.autoNextTimeout = setTimeout(() => {
+          if (state.mode === 'test' || state.mode === 'mastery') {
+            nextQuestion();
+          }
+        }, 700);
+      } else {
+        playSFX('wrong');
+        state.statsStreak = 0;
+
+        const correctFormatted = formatMathHTML(state.correctAnswer);
+        const userFormatted = formatMathHTML(userVal);
+        feedbackElem.className = 'text-xs font-bold text-red-400 flex items-center space-x-1.5';
+        feedbackElem.innerHTML = `<i class="fa-solid fa-circle-xmark text-sm"></i><span>不正解 (${userFormatted}) 正解: ${correctFormatted}</span>`;
+
+        // 不正解時は「次へ」ボタンを表示してユーザーのタイミングで進める
+        document.getElementById('next-btn').classList.remove('hidden');
+      }
+
+      const accuracy = Math.round((state.statsCorrect / state.statsTotal) * 100);
+      document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
+      document.getElementById('stat-correct').innerText = state.statsCorrect;
+      document.getElementById('stat-total').innerText = state.statsTotal;
+      document.getElementById('stat-streak').innerText = state.statsStreak;
+
+      drawCircle();
+    }
+
+    function nextQuestion() {
+      playSFX('tap');
+      generateQuestion();
+    }
+
+    function updateTapView() {
+      const angleObj = ANGLES_DATA[state.currentAngleIndex];
+      const deg = angleObj.deg;
+
+      updateQuestionCard();
+
+      // Formatted value strings
+      const cosHtml = formatMathHTML(angleObj.cos);
+      const sinHtml = formatMathHTML(angleObj.sin);
+      const tanHtml = formatMathHTML(angleObj.tan);
+
+      const angleLabel = state.angleUnit === 'deg' ? `${deg}°` : formatRadianHTML(angleObj.radStr);
+
+      const cosElem = document.getElementById('tap-val-cos');
+      if (cosElem) cosElem.innerHTML = `<span class="text-red-400 font-bold mr-1">cos</span><span class="text-red-200 mx-0.5">${angleLabel}</span><span class="mx-1 text-slate-400">=</span>${cosHtml}`;
+
+      const sinElem = document.getElementById('tap-val-sin');
+      if (sinElem) sinElem.innerHTML = `<span class="text-emerald-400 font-bold mr-1">sin</span><span class="text-emerald-200 mx-0.5">${angleLabel}</span><span class="mx-1 text-slate-400">=</span>${sinHtml}`;
+
+      const tanElem = document.getElementById('tap-val-tan');
+      if (tanElem) tanElem.innerHTML = `<span class="text-amber-400 font-bold mr-1">tan</span><span class="text-amber-200 mx-0.5">${angleLabel}</span><span class="mx-1 text-slate-400">=</span>${tanHtml}`;
+
+      // Explanation text
+      let expText = "";
+      if (deg === 0 || deg === 360) expText = "【始線】 (1, 0) : cos=1, sin=0, tan=0 (水平線)。";
+      else if (deg === 90) expText = "【y軸正方向】 (0, 1) : cos=0, sin=1, tanは定義なし(分母0)。";
+      else if (deg === 180) expText = "【x軸負方向】 (-1, 0) : cos=-1, sin=0, tan=0。";
+      else if (deg === 270) expText = "【y軸負方向】 (0, -1) : cos=0, sin=-1, tanは定義なし。";
+      else if (deg > 0 && deg < 90) expText = "【第1象限】 x, yともに正(+)。cos, sin, tanのすべてがプラスです。";
+      else if (deg > 90 && deg < 180) expText = "【第2象限】 x軸負(-), y軸正(+)。cos(-), sin(+), 傾きtan(-)。";
+      else if (deg > 180 && deg < 270) expText = "【第3象限】 x軸負(-), y軸負(-)。cos(-), sin(-), 傾きtan(+)。";
+      else expText = "【第4象限】 x軸正(+), y軸負(-)。cos(+), sin(-), 傾きtan(-)。";
+
+      const expElem = document.getElementById('tap-explanation');
+      if (expElem) expElem.innerText = expText;
+
+      renderTapAngleChips();
+    }
+
+    function renderTapAngleChips() {
+      const container = document.getElementById('tap-angle-chips');
+      if (!container) return;
+      
+      const activeAngles = getActiveAngles();
+      container.innerHTML = activeAngles.map((a) => {
+        const idx = ANGLES_DATA.findIndex(item => item.deg === a.deg);
+        const isSelected = (idx === state.currentAngleIndex);
+        const activeClass = isSelected
+          ? 'bg-cyan-500 text-slate-950 font-bold border-cyan-300 shadow-md scale-105'
+          : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border-slate-700/80';
+        
+        const angleLabel = state.angleUnit === 'deg' ? `${a.deg}°` : formatRadianHTML(a.radStr);
+          
+        return `<button onclick="selectTapAngle(${idx})" class="px-2 py-0.5 rounded text-[11px] font-mono border transition-all duration-150 ${activeClass} inline-flex items-center justify-center">
+          ${angleLabel}
+        </button>`;
+      }).join('');
+    }
+
+    function selectTapAngle(idx) {
+      playSFX('tap');
+      state.currentAngleIndex = idx;
+      updateTapView();
+      drawCircle();
+    }
+
+    // Snap degree to closest major angle across multiple rotations (-1080 to 1080)
+    function snapToMajorAngle(rawDeg) {
+      const baseMajorDegrees = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360];
+      const rotations = Math.floor(rawDeg / 360);
+      const remainder = rawDeg - rotations * 360;
+
+      // Find closest major angle in remainder
+      let closestBase = baseMajorDegrees[0];
+      let minDiff = Math.abs(remainder - closestBase);
+
+      for (let i = 1; i < baseMajorDegrees.length; i++) {
+        const diff = Math.abs(remainder - baseMajorDegrees[i]);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestBase = baseMajorDegrees[i];
+        }
+      }
+
+      let snapped = rotations * 360 + closestBase;
+      if (snapped > 1080) snapped = 1080;
+      if (snapped < -1080) snapped = -1080;
+
+      return snapped;
+    }
+
+    function onExploreSliderInput(val) {
+      // Live updates while dragging, snapped to major angles
+      const rawVal = parseInt(val, 10);
+      const snappedVal = snapToMajorAngle(rawVal);
+      state.exploreAngle = snappedVal;
+      updateExploreView();
+      drawCircle();
+    }
+
+    function onExploreSliderChange(val) {
+      // Ensure slider handle position snaps perfectly when released
+      const rawVal = parseInt(val, 10);
+      const snappedVal = snapToMajorAngle(rawVal);
+      state.exploreAngle = snappedVal;
+
+      const slider = document.getElementById('angle-slider');
+      if (slider) slider.value = snappedVal;
+
+      updateExploreView();
+      drawCircle();
+    }
+
+    function changeExploreAngle(delta) {
+      playSFX('tap');
+      let newAngle = snapToMajorAngle(state.exploreAngle + delta);
+      state.exploreAngle = newAngle;
+
+      const slider = document.getElementById('angle-slider');
+      if (slider) slider.value = newAngle;
+
+      updateExploreView();
+      drawCircle();
+    }
+
+    function setExploreAngle(angle) {
+      playSFX('tap');
+      state.exploreAngle = angle;
+      const slider = document.getElementById('angle-slider');
+      if (slider) slider.value = angle;
+
+      updateExploreView();
+      drawCircle();
+    }
+
+    // Move to next/previous major angle using keyboard arrows (-1080 to 1080)
+    function moveExploreMajorAngle(direction) {
+      const baseAngles = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360];
+      const current = state.exploreAngle;
+      
+      const allMajor = [];
+      for (let r = -3; r <= 3; r++) {
+        for (let b of baseAngles) {
+          const deg = r * 360 + b;
+          if (deg >= -1080 && deg <= 1080 && !allMajor.includes(deg)) {
+            allMajor.push(deg);
+          }
+        }
+      }
+      allMajor.sort((a, b) => a - b);
+
+      let closestIdx = 0;
+      let minDiff = Math.abs(current - allMajor[0]);
+      for (let i = 1; i < allMajor.length; i++) {
+        const diff = Math.abs(current - allMajor[i]);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      }
+
+      let newIdx = closestIdx + direction;
+      if (newIdx < 0) newIdx = 0;
+      if (newIdx >= allMajor.length) newIdx = allMajor.length - 1;
+
+      setExploreAngle(allMajor[newIdx]);
+    }
+
+    function updateExploreView() {
+      const deg = state.exploreAngle;
+      const normDeg = ((deg % 360) + 360) % 360;
+
+      // Map to equivalent major angle index for circle node highlighting
+      const majorIdx = ANGLES_DATA.findIndex(a => a.deg === normDeg);
+      if (majorIdx >= 0) {
+        state.currentAngleIndex = majorIdx;
+      }
+
+      updateQuestionCard();
+
+      // Rotations badge info
+      const rotations = Math.floor(deg / 360);
+      const rem = deg - rotations * 360;
+      const badgeElem = document.getElementById('exp-rotation-badge');
+      if (badgeElem) {
+        const rotSign = rotations >= 0 ? `+${rotations}` : `${rotations}`;
+        badgeElem.innerText = `${rotSign}回転 (${normDeg}°)`;
+      }
+
+      // Check if normDeg is exact major angle
+      const majorObj = ANGLES_DATA.find(a => a.deg === normDeg);
+
+      let cosVal, sinVal, tanVal;
+      if (majorObj) {
+        cosVal = formatMathHTML(majorObj.cos);
+        sinVal = formatMathHTML(majorObj.sin);
+        tanVal = formatMathHTML(majorObj.tan);
+      } else {
+        const rad = deg * Math.PI / 180;
+        cosVal = Math.cos(rad).toFixed(3);
+        sinVal = Math.sin(rad).toFixed(3);
+        tanVal = Math.abs(Math.cos(rad)) < 0.0001 ? 'なし' : Math.tan(rad).toFixed(3);
+      }
+
+      document.getElementById('exp-val-cos').innerHTML = cosVal;
+      document.getElementById('exp-val-sin').innerHTML = sinVal;
+      document.getElementById('exp-val-tan').innerHTML = tanVal;
+
+      let expText = "";
+      if (rotations !== 0) {
+        expText = `【${rotations > 0 ? '+' : ''}${rotations}回転】 ${deg}° は 単位円上で同界角 ${normDeg}° と同じ位置 P に重なります。`;
+      } else if (normDeg === 0 || normDeg === 360) {
+        expText = "【始線】 (1, 0) : cosθ=1, sinθ=0, tanθ=0。";
+      } else if (normDeg === 90) {
+        expText = "【y軸正方向】 (0, 1) : cosθ=0, sinθ=1, tanθは定義なし。";
+      } else if (normDeg === 180) {
+        expText = "【x軸負方向】 (-1, 0) : cosθ=-1, sinθ=0, tanθ=0。";
+      } else if (normDeg === 270) {
+        expText = "【y軸負方向】 (0, -1) : cosθ=0, sinθ=-1, tanθは定義なし。";
+      } else {
+        expText = `【同界角 ${normDeg}°】 P(cosθ, sinθ) の座標と動径の傾き tanθ を表示中。`;
+      }
+
+      document.getElementById('exp-explanation').innerText = expText;
+    }
+
+    // Main Unit Circle Canvas Renderer
+    function drawCircle() {
+      if (!ctx || !canvas) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+
+      ctx.clearRect(0, 0, w, h);
+
+      if (!state.showCircle && state.mode !== 'explore' && state.mode !== 'tap') return;
+
+      const cx = w / 2;
+      const cy = h / 2;
+      const R = Math.min(w, h) * 0.38; // Unit circle radius
+
+      let degVal = ANGLES_DATA[state.currentAngleIndex].deg;
+      if (state.mode === 'explore') {
+        degVal = state.exploreAngle;
+      }
+
+      const normDeg = ((degVal % 360) + 360) % 360;
+      const rad = normDeg * Math.PI / 180;
+
+      // 1. Grid & Coordinate Axes
+      ctx.strokeStyle = '#334155'; // slate-700
+      ctx.lineWidth = 1;
+
+      // X Axis
+      ctx.beginPath();
+      ctx.moveTo(10, cy);
+      ctx.lineTo(w - 10, cy);
+      ctx.stroke();
+
+      // Y Axis
+      ctx.beginPath();
+      ctx.moveTo(cx, 10);
+      ctx.lineTo(cx, h - 10);
+      ctx.stroke();
+
+      // Axis Labels
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '10px Fira Code, monospace';
+      ctx.fillText('x (cos)', w - 40, cy - 6);
+      ctx.fillText('y (sin)', cx + 6, 18);
+
+      // Major Angle Radial Guide Lines
+      const activeAngles = getActiveAngles();
+
+      ctx.save();
+      ctx.strokeStyle = '#1e293b';
+      ctx.setLineDash([2, 4]);
+      activeAngles.forEach(a => {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + R * Math.cos(a.radVal), cy - R * Math.sin(a.radVal));
+        ctx.stroke();
+      });
+      ctx.restore();
+
+      // 2. Unit Circle Perimeter
+      ctx.strokeStyle = '#06b6d4'; // Cyan-500
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Interactive Clickable Nodes on Circle
+      activeAngles.forEach((a) => {
+        const idx = ANGLES_DATA.findIndex(item => item.deg === a.deg);
+        const nx = cx + R * Math.cos(a.radVal);
+        const ny = cy - R * Math.sin(a.radVal);
+        const isSelected = (a.deg === normDeg);
+
+        ctx.beginPath();
+        ctx.arc(nx, ny, isSelected ? 6.5 : 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = isSelected ? '#38bdf8' : '#0284c7';
+        ctx.fill();
+        ctx.strokeStyle = isSelected ? '#ffffff' : '#0e7490';
+        ctx.lineWidth = isSelected ? 2 : 1;
+        ctx.stroke();
+
+        if (isSelected) {
+          ctx.beginPath();
+          ctx.arc(nx, ny, 10, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      });
+
+      // Unit Values (+1, -1) Labels
+      ctx.fillStyle = '#64748b';
+      ctx.font = '10px monospace';
+      ctx.fillText('1', cx + R + 3, cy + 12);
+      ctx.fillText('-1', cx - R - 15, cy + 12);
+      ctx.fillText('1', cx - 10, cy - R - 4);
+      ctx.fillText('-1', cx - 14, cy + R + 12);
+
+      // Point P (cosθ, sinθ) on circle
+      const px = cx + R * Math.cos(rad);
+      const py = cy - R * Math.sin(rad);
+
+      // 3. Highlighted Arc Sector
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, R * 0.25, 0, -rad, true);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.18)';
+      ctx.fill();
+      ctx.strokeStyle = '#22d3ee';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Angle Symbol Label
+      const midRad = rad / 2;
+      ctx.fillStyle = '#fde047';
+      ctx.font = 'bold 11px sans-serif';
+      let arcLabel = "";
+      if (state.mode === 'explore') {
+        arcLabel = state.angleUnit === 'deg' ? `${state.exploreAngle}°` : getDegreeToRadianStr(state.exploreAngle);
+      } else {
+        const angleObj = ANGLES_DATA[state.currentAngleIndex];
+        arcLabel = state.angleUnit === 'deg' ? `${angleObj.deg}°` : `${angleObj.radStr}`;
+      }
+      ctx.fillText(arcLabel, cx + (R * 0.38) * Math.cos(midRad) - 10, cy - (R * 0.38) * Math.sin(midRad) + 4);
+
+      // 4. Component Vector Lines (cos = Red, sin = Green, tan = Amber)
+      if (state.mode === 'explore' || state.mode === 'tap' || state.answered || state.currentFunc === 'cos') {
+        // cos line (x-projection on x-axis)
+        ctx.strokeStyle = '#ef4444'; // Red
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(px, cy);
+        ctx.stroke();
+      }
+
+      if (state.mode === 'explore' || state.mode === 'tap' || state.answered || state.currentFunc === 'sin') {
+        // sin line (y-projection directly on y-axis)
+        ctx.strokeStyle = '#10b981'; // Green
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx, py);
+        ctx.stroke();
+      }
+
+      // Projection Helper Lines (dashed lines from P to axes)
+      ctx.save();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.setLineDash([3, 3]);
+      ctx.lineWidth = 1;
+
+      // Horizontal dashed line from P(px, py) to y-axis (cx, py)
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(cx, py);
+      ctx.stroke();
+
+      // Vertical dashed line from P(px, py) to x-axis (px, cy)
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px, cy);
+      ctx.stroke();
+
+      ctx.restore();
+
+      // Tangent Line (for Tan θ)
+      if ((state.mode === 'explore' || state.mode === 'tap' || state.currentFunc === 'tan' || state.answered) && normDeg !== 90 && normDeg !== 270) {
+        ctx.save();
+        ctx.strokeStyle = '#f59e0b'; // Amber
+        ctx.lineWidth = 2.5;
+
+        const tanValNumeric = Math.tan(rad);
+        const tanY = cy - R * tanValNumeric;
+        ctx.beginPath();
+        ctx.moveTo(cx + R, cy);
+        ctx.lineTo(cx + R, tanY);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + R, tanY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(cx + R, tanY, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // 5. Radius Vector Line
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(px, py);
+      ctx.stroke();
+
+      // 6. Terminal Point P Dot
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath();
+      ctx.arc(px, py, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Point Coordinates Label
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 11px Fira Code, monospace';
+      ctx.fillText(`P(${arcLabel})`, px + (px >= cx ? 8 : -55), py + (py >= cy ? 15 : -8));
+
+      // 7. Touch Ripple Ring Effect
+      if (state.lastTap && Date.now() - state.lastTap.time < 300) {
+        const dt = (Date.now() - state.lastTap.time) / 300;
+        ctx.beginPath();
+        ctx.arc(state.lastTap.x, state.lastTap.y, 8 + dt * 18, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(34, 211, 238, ${1 - dt})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    }
+
+    function handleCanvasClick(e) {
+      // テストモードおよび全角攻略モードの時はタップ・クリック操作を無効化
+      if (state.mode === 'test' || state.mode === 'mastery') return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      state.lastTap = { x, y, time: Date.now() };
+
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+
+      let angleRad = Math.atan2(cy - y, x - cx);
+      if (angleRad < 0) angleRad += Math.PI * 2;
+
+      const activeAngles = getActiveAngles();
+      let closestAngle = activeAngles[0];
+      let minDiff = 1000;
+
+      activeAngles.forEach(a => {
+        let diff = Math.abs(a.radVal - angleRad);
+        if (diff > Math.PI) diff = Math.PI * 2 - diff;
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestAngle = a;
+        }
+      });
+
+      playSFX('tap');
+      state.currentAngleIndex = ANGLES_DATA.findIndex(item => item.deg === closestAngle.deg);
+
+      if (state.mode === 'tap') {
+        updateTapView();
+      } else if (state.mode === 'explore') {
+        state.exploreAngle = closestAngle.deg;
+        const slider = document.getElementById('angle-slider');
+        if (slider) slider.value = closestAngle.deg;
+        updateExploreView();
+      } else {
+        updateQuestionCard();
+      }
+
+      drawCircle();
+    }
+
+    function resizeCanvas() {
+      canvas = document.getElementById('unit-circle-canvas');
+      if (!canvas) return;
+
+      const parent = canvas.parentElement;
+      const rect = parent.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+
+      ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      const isPortrait = window.innerHeight > window.innerWidth;
+      const warning = document.getElementById('portrait-warning');
+      if (warning) {
+        warning.classList.toggle('hidden', !isPortrait);
+      }
+
+      drawCircle();
+    }
+
+    window.onload = function() {
+      canvas = document.getElementById('unit-circle-canvas');
+      ctx = canvas.getContext('2d');
+
+      canvas.addEventListener('click', handleCanvasClick);
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          handleCanvasClick(e.touches[0]);
+        }
+      }, { passive: true });
+
+      // Keyboard navigation for explore mode
+      window.addEventListener('keydown', (e) => {
+        if (state.mode === 'explore') {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            moveExploreMajorAngle(1);
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            moveExploreMajorAngle(-1);
+          }
+        }
+      });
+
+      window.addEventListener('resize', resizeCanvas);
+
+      // Fullscreen change events
+      ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(event => {
+        document.addEventListener(event, () => {
+          updateFullscreenIcon();
+          setTimeout(resizeCanvas, 100);
+        });
+      });
+
+      resizeCanvas();
+
+      generateQuestion();
+    };
+  </script>
+</body>
+</html>

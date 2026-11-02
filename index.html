@@ -25,6 +25,9 @@
     .card-glow-indigo:hover {
       box-shadow: 0 0 35px -5px rgba(129, 140, 248, 0.25), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
     }
+    .card-glow-cyan:hover {
+      box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
     /* 背景のグラデーション装飾 */
     .hero-glow {
       position: absolute;
@@ -41,7 +44,7 @@
 <body class="bg-slate-950 text-slate-100 min-h-full flex flex-col relative overflow-x-hidden selection:bg-sky-500 selection:text-white">
 
   <!-- 背景グローエフェクト -->
-  <div class="hero-glow bg-sky-500 -top-40 -left-40"></div>
+  <div class="hero-glow bg-cyan-500 -top-40 -left-40"></div>
   <div class="hero-glow bg-indigo-600 top-60 -right-40"></div>
   <div class="hero-glow bg-emerald-500 bottom-20 left-1/3"></div>
 
@@ -49,7 +52,7 @@
   <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur-md sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2 12c4-8 8-8 10 0s6 8 10 0"/></svg>
         </div>
         <div>
@@ -76,26 +79,30 @@
 
     <!-- ヒーローヘッダー -->
     <div class="text-center max-w-3xl mx-auto space-y-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold tracking-wide">
-        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold tracking-wide">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
         高校数学Ⅱ「三角関数」完全制覇
       </div>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
         見て・動かして・納得する<br>
-        <span class="bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">
+        <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
           三角関数インタラクティブ学習
         </span>
       </h1>
       <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
-        「なぜその公式になるのか」「単位円と波形はどう結びつくのか」を視覚的に体験。<br class="hidden sm:inline">
-        目的に合わせて以下の2つのアプリケーションから選択してください。
+        「主要角の値」「単位円と波形の結びつき」「複雑なグラフの作図法」を視覚的に体験。<br class="hidden sm:inline">
+        目的に合わせて以下の3つのアプリケーションから選択してください。
       </p>
 
       <!-- 特徴バッジバー -->
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs text-slate-400">
         <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
+          <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          主要角 0°〜360° 完全網羅
+        </span>
+        <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
           <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          合計 44 問収録
+          合計 44 問の実戦問題
         </span>
         <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
           <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -103,26 +110,113 @@
         </span>
         <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
           <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          ステップ作図 ＆ テストモード
-        </span>
-        <span class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800">
-          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          ブラウザ単体で完全動作
+          全画面対応 ＆ 完全動作
         </span>
       </div>
     </div>
 
-    <!-- アプリ選択カード 2列グリッド -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+    <!-- アプリ選択カード 3列グリッド -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
 
       <!-- ========================================== -->
-      <!-- カード 1: 三角方程式・三角不等式 徹底理解 -->
+      <!-- カード 1: 三角関数主要角マスター (新追加) -->
       <!-- ========================================== -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 card-glow relative overflow-hidden group">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 card-glow-cyan relative overflow-hidden group">
+        <!-- 上部アクセントグラデーション -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-500"></div>
+
+        <div class="space-y-5">
+          <!-- バッジ ＆ アイコン -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                0°〜360° (主要16角)
+              </span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+                4大モード搭載
+              </span>
+            </div>
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 12l6-6M12 12h8"/></svg>
+            </div>
+          </div>
+
+          <!-- タイトル ＆ 説明 -->
+          <div>
+            <h2 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors flex items-center gap-2">
+              主要角マスター
+              <span class="text-xs font-normal text-cyan-400">0°〜360°</span>
+            </h2>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              $\cos, \sin, \tan$ の値を瞬時に答える瞬発力養成から、直接円をタップして確認する直感学習、$-1080^\circ \sim 1080^\circ$ の角度探求まで完全網羅。
+            </p>
+          </div>
+
+          <!-- 特徴リスト -->
+          <div class="space-y-2 text-xs text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">4つの学習モード</strong>: テスト、全角攻略、円タップ練習、スライダー角度探求。
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">三平方・符号の直感可視化</strong>: $\cos$(赤), $\sin$(緑), $\tan$(黄) を動径上に分解描画。
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+              </div>
+              <div>
+                <strong class="text-white">度数法 ⇄ 弧度法 切替</strong>: $60^\circ$ と $\frac{\pi}{3}$ などの表記をワンタッチ切替。
+              </div>
+            </div>
+          </div>
+
+          <!-- 数式プレビュー（KaTeX） -->
+          <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 flex items-center justify-between">
+              <span>主要角の値プレビュー</span>
+              <span class="text-cyan-400">瞬時に出題</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5 text-center font-serif text-slate-200 text-[11px]">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
+                $\cos 60^\circ = \frac{1}{2}$
+              </div>
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
+                $\sin \frac{3\pi}{4} = \frac{1}{\sqrt{2}}$
+              </div>
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
+                $\tan 120^\circ = -\sqrt{3}$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 起動アクションボタン -->
+        <div class="pt-5 mt-5 border-t border-slate-800">
+          <a href="cos_sin_tan.html" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:from-cyan-500 hover:to-teal-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/30 hover:shadow-cyan-500/50 transition-all transform hover:-translate-y-0.5">
+            <span>🎯 主要角マスターを起動</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- カード 2: 三角方程式・三角不等式 徹底理解 -->
+      <!-- ========================================== -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 card-glow relative overflow-hidden group">
         <!-- 上部アクセントグラデーション -->
         <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-sky-400 via-cyan-400 to-blue-600"></div>
 
-        <div class="space-y-6">
+        <div class="space-y-5">
           <!-- バッジ ＆ アイコン -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -133,64 +227,64 @@
                 方程式 12問 / 不等式 6問
               </span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-width="2" d="M12 3v18M3 12h18"/></svg>
             </div>
           </div>
 
           <!-- タイトル ＆ 説明 -->
           <div>
-            <h2 class="text-2xl font-bold text-white group-hover:text-sky-300 transition-colors flex items-center gap-2">
-              三角方程式・三角不等式
-              <span class="text-sm font-normal text-sky-400">徹底理解</span>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition-colors flex items-center gap-2">
+              三角方程式・不等式
+              <span class="text-xs font-normal text-sky-400">徹底理解</span>
             </h2>
-            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-              角 $\theta$ をスライダーで滑らかに動かし、<strong>単位円上の動径</strong>と<strong>波形グラフ上のプロット</strong>がどのように連動するかを体感学習。置換角 $t = k\theta + \alpha$ の範囲や不等式の解の配置が一目瞭然になります。
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              角 $\theta$ をスライダーで滑らかに動かし、<strong>単位円上の動径</strong>と<strong>波形グラフ上のプロット</strong>の連動を体感。置換角 $t$ の範囲や解の配置が一目瞭然。
             </p>
           </div>
 
           <!-- 特徴リスト -->
-          <div class="space-y-2.5 text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <div class="space-y-2 text-xs text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               </div>
               <div>
-                <strong class="text-white">単位円 ＆ グラフの完全連動</strong>: スライダーや自動進行で角を回すと、単位円の点と波形上の点がリアルタイムに一致。
+                <strong class="text-white">単位円 ＆ グラフ完全連動</strong>: 動径の回転と波形の点がリアルタイムに一致。
               </div>
             </div>
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
               </div>
               <div>
-                <strong class="text-white">θ 軸 ⇄ t 軸 の横軸切り替え</strong>: 原関数の $\theta$ 軸表示と、置換後の $t$ 軸表示をワンタッチで切り替えて本質を比較。
+                <strong class="text-white">θ 軸 ⇄ t 軸 切替</strong>: 置換前後の横軸をワンタッチで切り替えて本質比較。
               </div>
             </div>
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3"/></svg>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3"/></svg>
               </div>
               <div>
-                <strong class="text-white">不等号向き自由変更</strong>: 不等式では $>$, $\geqq$, $<$, $\leqq$ を選択でき、満たす領域や境界の塗りつぶしが即時変化。
+                <strong class="text-white">不等号向き自由変更</strong>: $>$, $\geqq$, $<$, $\leqq$ で領域の塗りつぶしが即時変化。
               </div>
             </div>
           </div>
 
-          <!-- 収録問題の数式プレビュー（KaTeX） -->
-          <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-xs space-y-1.5">
-            <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+          <!-- 収録問題プレビュー（KaTeX） -->
+          <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 flex items-center justify-between">
               <span>収録問題プレビュー</span>
-              <span class="text-sky-400">ポップアップで瞬時に選択可能</span>
+              <span class="text-sky-400">全18問</span>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center font-serif text-slate-200">
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
+            <div class="grid grid-cols-3 gap-1.5 text-center font-serif text-slate-200 text-[11px]">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
                 $\sin(\theta + \frac{\pi}{3}) = \frac{\sqrt{3}}{2}$
               </div>
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
-                $\cos(\theta - \frac{\pi}{3}) \leqq -\frac{\sqrt{2}}{2}$
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
+                $\cos(\theta - \frac{\pi}{3}) \leqq -\frac{1}{\sqrt{2}}$
               </div>
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
                 $\tan(2\theta + \frac{\pi}{4}) \geqq 1$
               </div>
             </div>
@@ -198,23 +292,22 @@
         </div>
 
         <!-- 起動アクションボタン -->
-        <div class="pt-6 mt-6 border-t border-slate-800">
-          <a href="equations.html" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-sky-600/30 hover:shadow-sky-500/50 transition-all transform hover:-translate-y-0.5">
+        <div class="pt-5 mt-5 border-t border-slate-800">
+          <a href="equations.html" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-sky-600/30 hover:shadow-sky-500/50 transition-all transform hover:-translate-y-0.5">
             <span>📐 方程式・不等式アプリを起動</span>
-            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
         </div>
       </div>
 
-
       <!-- ========================================== -->
-      <!-- カード 2: 三角関数グラフ描き方マスター -->
+      <!-- カード 3: 三角関数グラフ描き方マスター -->
       <!-- ========================================== -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 card-glow-indigo relative overflow-hidden group">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 card-glow-indigo relative overflow-hidden group">
         <!-- 上部アクセントグラデーション -->
         <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
-        <div class="space-y-6">
+        <div class="space-y-5">
           <!-- バッジ ＆ アイコン -->
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -225,64 +318,64 @@
                 練習 ＆ テストモード
               </span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12c4-8 8-8 10 0s6 8 10 0"/></svg>
             </div>
           </div>
 
           <!-- タイトル ＆ 説明 -->
           <div>
-            <h2 class="text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors flex items-center gap-2">
-              三角関数グラフ描き方
-              <span class="text-sm font-normal text-indigo-400">マスター</span>
+            <h2 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors flex items-center gap-2">
+              グラフ描き方
+              <span class="text-xs font-normal text-indigo-400">マスター</span>
             </h2>
-            <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-              高校生がつまずきやすい<strong>「振幅・周期・平行移動」</strong>を完全攻略。主要5点のプロット手法とステップ解説により、どんなに変形された三角関数のグラフでも自分の手で正確に描けるようになります。
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              高校生がつまずきやすい<strong>「振幅・周期・平行移動」</strong>を完全攻略。主要5点のプロット手法とステップ解説でどんな変形グラフも正確に作図。
             </p>
           </div>
 
           <!-- 特徴リスト -->
-          <div class="space-y-2.5 text-xs text-slate-300 bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          <div class="space-y-2 text-xs text-slate-300 bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               </div>
               <div>
-                <strong class="text-white">ステップバイステップ作図</strong>: 基本形からの拡大縮小・平行移動・要点5点の打点手順を段階的に誘導。
+                <strong class="text-white">ステップバイステップ作図</strong>: 基本形からの拡大縮小・平行移動・要点5点打点。
               </div>
             </div>
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </div>
               <div>
-                <strong class="text-white">テストモード ＆ スコア記録</strong>: 出題範囲を指定してランダムテスト。正答率や解答履歴をリアルタイム記録。
+                <strong class="text-white">テストモード ＆ スコア記録</strong>: 出題範囲を指定してランダムテスト・正答率記録。
               </div>
             </div>
-            <div class="flex items-start gap-2.5">
-              <div class="w-5 h-5 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div class="flex items-start gap-2">
+              <div class="w-4 h-4 rounded bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               </div>
               <div>
-                <strong class="text-white">「描画の極意」チートシート</strong>: 周期の求め方や平行移動の読み取り方など、公式とコツをいつでも確認可能。
+                <strong class="text-white">「描画の極意」チートシート</strong>: 周期の求め方や平行移動の読み取りコツを常時参照。
               </div>
             </div>
           </div>
 
-          <!-- 収録問題の数式プレビュー（KaTeX） -->
-          <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-xs space-y-1.5">
-            <div class="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+          <!-- 収録問題プレビュー（KaTeX） -->
+          <div class="bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 flex items-center justify-between">
               <span>収録問題プレビュー</span>
-              <span class="text-indigo-400">基本形から複合変形まで</span>
+              <span class="text-indigo-400">全26問</span>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center font-serif text-slate-200">
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
+            <div class="grid grid-cols-3 gap-1.5 text-center font-serif text-slate-200 text-[11px]">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
                 $y = 2\sin(2\theta - \frac{\pi}{3})$
               </div>
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
                 $y = -\cos(\frac{\theta}{2} + \frac{\pi}{4})$
               </div>
-              <div class="p-2 rounded bg-slate-900 border border-slate-800">
+              <div class="p-1.5 rounded bg-slate-900 border border-slate-800">
                 $y = \tan(\theta - \frac{\pi}{4})$
               </div>
             </div>
@@ -290,10 +383,10 @@
         </div>
 
         <!-- 起動アクションボタン -->
-        <div class="pt-6 mt-6 border-t border-slate-800">
-          <a href="graph.html" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5">
+        <div class="pt-5 mt-5 border-t border-slate-800">
+          <a href="graph.html" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5">
             <span>📈 グラフ描き方アプリを起動</span>
-            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
         </div>
       </div>
@@ -309,19 +402,26 @@
       <h3 class="text-lg sm:text-xl font-bold text-white">
         効率的なマスターの流れ
       </h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-300">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm text-slate-300">
         <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 flex gap-3">
-          <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 font-bold flex items-center justify-center shrink-0">1</span>
+          <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0">1</span>
           <div>
-            <strong class="text-white block text-sm mb-1">まずは「グラフ描き方マスター」で波形の感覚を掴む</strong>
+            <strong class="text-white block text-sm mb-1">「主要角マスター」で単位円と値を体得</strong>
+            $30^\circ, 45^\circ, 60^\circ$ や弧度法の角、動径座標の正負符号を瞬時に答えられる土台を作ります。
+          </div>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 flex gap-3">
+          <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 font-bold flex items-center justify-center shrink-0">2</span>
+          <div>
+            <strong class="text-white block text-sm mb-1">「グラフ描き方マスター」で波形の感覚を掴む</strong>
             周期（$2\pi / k$）や振幅の変化、平行移動したときの基準点のズレを主要5点で打点し、三角関数の形状を身体で覚えましょう。
           </div>
         </div>
         <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800/90 flex gap-3">
-          <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 font-bold flex items-center justify-center shrink-0">2</span>
+          <span class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 font-bold flex items-center justify-center shrink-0">3</span>
           <div>
-            <strong class="text-white block text-sm mb-1">次に「方程式・不等式」で単位円と波形を結びつける</strong>
-            置換角 $t$ の範囲を単位円で捉え、波形グラフの横軸を $\theta$ と $t$ で見比べることで、どんな応用問題でも迷わず立式・解答できるようになります。
+            <strong class="text-white block text-sm mb-1">「方程式・不等式」で単位円と波形を結びつける</strong>
+            置換角 $t$ の範囲を単位円で捉え、波形グラフの横軸を見比べることで、どんな応用問題でも迷わず立式・解答できるようになります。
           </div>
         </div>
       </div>
@@ -331,7 +431,9 @@
 
   <!-- フッター -->
   <footer class="border-t border-slate-800/80 bg-slate-950/90 py-8 mt-12 text-center text-xs text-slate-400 space-y-2">
-    <div class="flex items-center justify-center gap-4">
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href="cos_sin_tan.html" class="hover:text-cyan-400 transition">主要角マスター (0°〜360°)</a>
+      <span class="text-slate-700">•</span>
       <a href="equations.html" class="hover:text-sky-400 transition">三角方程式・不等式 (18問)</a>
       <span class="text-slate-700">•</span>
       <a href="graph.html" class="hover:text-indigo-400 transition">グラフ描き方マスター (26問)</a>
